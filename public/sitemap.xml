@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Detailed sitemap for the site. Replace `https://your-domain.com` with your
+  actual production domain (or update the `DOMAIN` constant in
+  `scripts/generate-sitemap.js`) and re-run `npm run generate-sitemap` to
+  auto-populate blog post URLs from Supabase.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://your-domain.com/</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Blog listing -->
+  <url>
+    <loc>https://your-domain.com/blogs</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Example blog post entry (the generate-sitemap script will add real
+       entries from Supabase). Replace {POST_ID} with actual UUIDs or run the
+       script to populate `public/sitemap.xml` automatically. -->
+  <url>
+    <loc>https://your-domain.com/blogs/{POST_ID}</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+
+  <!-- Add additional static pages or top-level routes here (projects, about)
+       Note: do not include fragment identifiers (hash links) in sitemaps. -->
+  <url>
+    <loc>https://your-domain.com/#contact</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+</urlset>
