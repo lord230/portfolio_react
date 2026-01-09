@@ -103,6 +103,17 @@ body {
     animation: glow 2s ease-in-out infinite alternate;
 }
 
+/* Ensure logo link has no underline */
+.nav-logo {
+    text-decoration: none;
+}
+
+/* Back link (e.g. Back to Blogs) should not be underlined */
+.back-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .nav-controls {
     display: flex;
     align-items: center;
