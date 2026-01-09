@@ -13,7 +13,7 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
-const DOMAIN = 'https://your-domain.com'; // Replace with actual domain
+const DOMAIN = 'https://amitverma.pro';
 
 const staticRoutes = [
     '/',
