@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import NeuralNetwork from './NeuralNetwork';
+
 
 const Hero = () => {
     const [titleText, setTitleText] = useState('');
@@ -25,23 +27,6 @@ const Hero = () => {
         return () => clearTimeout(timeoutId);
     }, []);
 
-    // Parallax effect
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrolled = window.pageYOffset;
-            const elements = document.querySelectorAll('.floating-element');
-
-            elements.forEach((element, index) => {
-                const speed = 0.5 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                element.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.1}deg)`;
-            });
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <section id="home" className="hero">
             <div className="hero-container">
@@ -56,7 +41,7 @@ const Hero = () => {
                         <p className="typing-text-delayed-2">Building, Running & Fine-tuning Machine Learning Models</p>
                     </div>
                     <div className="hero-cgpa-info">
-                        <span className="cgpa">CGPA: 8.0/10.0</span>
+                        <span className="cgpa">CGPA: 8.1/10.0</span>
                         <span className="graduation">Expected: Apr 2026</span>
                     </div>
                     <div className="hero-buttons">
@@ -65,12 +50,10 @@ const Hero = () => {
                         <a href="AV_RESUME.pdf" className="btn btn-secondary" download>Download CV</a>
                     </div>
                 </div>
-                <div className="hero-visual">
-                    <div className="floating-elements">
-                        <div className="floating-element element-1">★</div>
-                        <div className="floating-element element-2">✦</div>
-                        <div className="floating-element element-3">✧</div>
-                        <div className="floating-element element-4">✩</div>
+                <div className="hero-visual" style={{ position: 'relative' }}>
+
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                        <NeuralNetwork />
                     </div>
                 </div>
             </div>
