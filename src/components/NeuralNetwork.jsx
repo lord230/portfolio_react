@@ -229,9 +229,104 @@ const NeuralNetwork = () => {
             });
         };
 
+        // Floating Particles Logic
+        // const equations = ["σ(x)", "ReLU", "y=wx+b", "∂L/∂w", "Σ", "tanh", "α", "∇"];
+        const equations = [
+            "σ(x)",          // Sigmoid
+            "ReLU(x)",       // ReLU
+            "LeakyReLU(x)",
+            "Softmax(z)",
+            "tanh(x)",
+            "y = wx + b",
+            "y = W·x + b",
+            "L(y, ŷ)",       // Loss function
+            "MSE = (1/n)Σ(y - ŷ)²",
+            "CrossEntropy",
+            "∂L/∂w",
+            "∂L/∂b",
+            "∇L",
+            "∇θ J(θ)",
+            "Δw = -α∇L",
+            "α",             // Learning rate
+            "λ‖w‖²",         // L2 regularization
+            "E[X]",          // Expectation
+            "Var(X)",
+            "Cov(X,Y)",
+            "Σ",
+            "Π",
+            "log(x)",
+            "ln(x)",
+            "||x||",
+            "argmax(x)",
+            "argmin(x)",
+            "P(y|x)",
+            "KL(P||Q)",
+            "H(X)",
+            "I(X;Y)",
+            "⊙",             // Hadamard product
+            "⊗",             // Tensor product
+            "ℝⁿ",
+            "∈",
+            "→"
+        ];
+
+        let particles = [];
+
+        const spawnParticle = () => {
+            if (particles.length < 15) { // Max particles
+                particles.push({
+                    text: equations[Math.floor(Math.random() * equations.length)],
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    opacity: 0,
+                    fadeIn: true,
+                    life: 0,
+                    maxLife: 100 + Math.random() * 200
+                });
+            }
+        };
+
+        const updateParticles = () => {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life++;
+
+                if (p.fadeIn) {
+                    p.opacity += 0.01;
+                    if (p.opacity >= 0.6) p.fadeIn = false;
+                } else {
+                    if (p.life > p.maxLife - 50) {
+                        p.opacity -= 0.01;
+                    }
+                }
+
+                if (p.life >= p.maxLife || p.opacity < 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        };
+
+        const drawParticles = () => {
+            ctx.font = '14px "Rajdhani", sans-serif'; // Increased font size slightly
+            ctx.textAlign = 'center';
+            particles.forEach(p => {
+                ctx.fillStyle = themeColors.primary; // Use primary color for better visibility
+                ctx.globalAlpha = p.opacity; // Opacity controls fade in/out
+                ctx.fillText(p.text, p.x, p.y);
+                ctx.globalAlpha = 1.0;
+            });
+        };
+
         const animate = () => {
             updateState();
+            if (Math.random() < 0.03) spawnParticle(); // Slightly increased spawn rate
+            updateParticles();
             draw();
+            drawParticles(); // Draw after network
             animationFrameId = requestAnimationFrame(animate);
         };
 
