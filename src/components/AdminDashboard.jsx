@@ -84,7 +84,7 @@ const AdminDashboard = ({ onClose }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Content</label>
+                        <label>Content (Markdown supported)</label>
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}

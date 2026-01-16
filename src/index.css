@@ -1754,3 +1754,62 @@ section {
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
+/* Blog Markdown Styles */
+.blog-content-full h1, 
+.blog-content-full h2, 
+.blog-content-full h3 {
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content-full h1 { font-size: 2rem; }
+.blog-content-full h2 { font-size: 1.75rem; }
+.blog-content-full h3 { font-size: 1.5rem; }
+
+.blog-content-full p {
+  margin-bottom: 1.5rem;
+}
+
+.blog-content-full ul, 
+.blog-content-full ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content-full li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content-full blockquote {
+  border-left: 4px solid var(--accent-primary);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.blog-content-full code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.blog-content-full pre {
+  background: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content-full pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.blog-content-full a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}

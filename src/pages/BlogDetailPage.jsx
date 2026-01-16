@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const BlogDetailPage = () => {
     const { id } = useParams();
@@ -49,9 +53,30 @@ const BlogDetailPage = () => {
                 )}
 
                 <div className="blog-content-full" style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-                    {post.content.split('\n').map((paragraph, idx) => (
-                        <p key={idx} style={{ marginBottom: '1.5rem' }}>{paragraph}</p>
-                    ))}
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                            code({ node, inline, className, children, ...props }) {
+                                const match = /language-(\w+)/.exec(className || '');
+                                return !inline && match ? (
+                                    <SyntaxHighlighter
+                                        style={vscDarkPlus}
+                                        language={match[1]}
+                                        PreTag="div"
+                                        {...props}
+                                    >
+                                        {String(children).replace(/\n$/, '')}
+                                    </SyntaxHighlighter>
+                                ) : (
+                                    <code className={className} {...props}>
+                                        {children}
+                                    </code>
+                                );
+                            }
+                        }}
+                    >
+                        {post.content}
+                    </ReactMarkdown>
                 </div>
             </div>
         </article>
