@@ -140,7 +140,7 @@ export const exploratoryProjects = {
         whatILearned: 'Understood the beauty of fractals and how efficient computation is needed for rendering complex math.',
         keyConcepts: 'Complex Numbers, Fractals, Performance Optimization',
         githubLink: 'https://github.com/lord230/Mandelbrot',
-        demoLink: null
+        demoLink: 'https://lord230.github.io/Mandelbrot/'
     },
     'gesture': {
         title: 'Gesture-based Control',
@@ -161,11 +161,11 @@ export const exploratoryProjects = {
         demoLink: null
     },
     'weather': {
-        title: 'Weather App',
-        description: 'A comprehensive weather application that provides real-time weather data and forecasts with a beautiful user interface.',
-        domain: 'API Integration',
-        whatILearned: ' Practiced fetching data from external APIs and displaying it dynamically.',
-        keyConcepts: 'REST APIs, JSON Parsing, Asynchronous JS',
+        title: 'Weather Prediction App',
+        description: 'A Python desktop application (Tkinter) that combines a Deep Learning model (Keras/TensorFlow) for future temperature prediction and a traditional ML model (Joblib) for rain classification — all in one GUI. The user inputs five recent temperatures plus humidity and wind speed; the app validates the data (blocks inputs where any two temps differ by more than 5°C) and runs both models in parallel to display a predicted temperature and a yes/no rain forecast.',
+        domain: 'Deep Learning & Applied ML',
+        whatILearned: 'Learned how to load and run trained Keras (.h5) and Joblib models inside a GUI app, and how to build a multi-model inference pipeline with input validation.',
+        keyConcepts: 'Keras/TensorFlow, Joblib, Tkinter GUI, Deep Learning Inference, Input Validation, Multi-model Pipeline',
         githubLink: 'https://github.com/lord230/Weather_app',
         demoLink: null
     },
@@ -197,11 +197,11 @@ export const exploratoryProjects = {
         demoLink: null
     },
     'rotation': {
-        title: 'Point Rotation Visualizer',
-        description: 'An interactive tool that demonstrates mathematical concepts of point rotation using trigonometric calculations.',
-        domain: 'Mathematics & Geometry',
-        whatILearned: 'Visualized linear transformations and rotation matrices.',
-        keyConcepts: 'Linear Algebra, Trigonometry, GUI Implementation',
+        title: 'Rotating 3D Shapes Visualizer',
+        description: 'A Python desktop app that lets you visualize and interact with rotating 3D shapes — Torus, Cube, and Tetrahedron — rendered in real-time using rotation matrices and perspective projection. The GUI (Tkinter + NumPy) lets you adjust rotation speed, shape scale, and toggle rotation per axis (X/Y/Z), with a built-in "How it Works" window explaining the linear algebra behind the renderer.',
+        domain: 'Mathematics & Computer Graphics',
+        whatILearned: 'Built a 3D-to-2D perspective projection pipeline from scratch using NumPy rotation matrices, and learned how GUI animation loops work in Tkinter.',
+        keyConcepts: 'Rotation Matrices, Perspective Projection, Tkinter GUI, NumPy, Real-time Animation',
         githubLink: 'https://github.com/lord230/Rotating_shapes',
         demoLink: null
     }

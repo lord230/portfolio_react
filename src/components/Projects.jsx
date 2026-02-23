@@ -3,6 +3,7 @@ import { majorProjects, exploratoryProjects } from '../data/projects';
 import MajorProjectCard from './MajorProjectCard';
 import ExploratoryProjectCard from './ExploratoryProjectCard';
 import ProjectModal from './ProjectModal';
+import CodingProfiles from './CodingProfiles';
 
 const Projects = () => {
     const [selectedProjectId, setSelectedProjectId] = useState(null);
@@ -34,6 +35,9 @@ const Projects = () => {
                         ))}
                     </div>
                 </div>
+
+                {/* ── Coding Profiles (between major & exploratory) ── */}
+                <CodingProfiles />
 
                 {/* Exploratory Projects Section */}
                 <div className="projects-category exploratory-category">

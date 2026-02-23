@@ -1,0 +1,407 @@
+/* =========================================================
+   CodingProfiles Section
+   ========================================================= */
+
+.cp-section {
+    padding: 6rem 0;
+    background: transparent;
+}
+
+.cp-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+}
+
+/* ── Loading ── */
+.cp-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 4rem 0;
+    color: var(--text-secondary);
+}
+
+.cp-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #646cff;
+    border-radius: 50%;
+    animation: cpSpin 0.8s linear infinite;
+}
+
+@keyframes cpSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Two-column grid ── */
+.cp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* ── Card shell ── */
+.cp-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.cp-card:hover {
+    transform: translateY(-4px);
+}
+
+.cp-card-github {
+    border-top: 3px solid #646cff;
+}
+
+.cp-card-cf {
+    border-top: 3px solid #f0a500;
+}
+
+/* ── Card header ── */
+.cp-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.cp-platform-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+.cf-logo {
+    font-weight: 900;
+    font-size: 1rem;
+    color: #f0a500;
+    letter-spacing: -1px;
+}
+
+.cp-platform-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.cp-handle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.cp-handle:hover {
+    color: #646cff;
+}
+
+.cp-ext-link {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.cp-ext-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-primary);
+}
+
+/* ── Stats row ── */
+.cp-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.025);
+    border-radius: 12px;
+    padding: 1rem 0.5rem;
+}
+
+.cp-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.cp-stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    line-height: 1;
+}
+
+.cp-stat-label {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+/* ── Contribution chart ── */
+.cp-contrib-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cp-contrib-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.cp-contrib-img-wrap {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    padding: 0.75rem;
+    overflow: hidden;
+}
+
+.cp-contrib-chart {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    filter: hue-rotate(0deg);
+    /* can tweak to match theme */
+}
+
+/* ── Repo list ── */
+.cp-sub-label,
+.cp-repo-list .cp-sub-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cp-repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.cp-repo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: background 0.2s, color 0.2s;
+    font-size: 0.85rem;
+}
+
+.cp-repo-row:hover {
+    background: rgba(100, 108, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.cp-repo-icon {
+    flex-shrink: 0;
+}
+
+.cp-repo-name {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cp-repo-lang {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.1rem 0.5rem;
+    border-radius: 100px;
+}
+
+.cp-repo-stars {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+/* ── CF rank badge ── */
+.cp-rank-badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cp-rank-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.cp-rank-rating {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Chakra Petch', monospace;
+    line-height: 1;
+}
+
+/* ── CF meta ── */
+.cp-cf-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+/* ── Submission list ── */
+.cp-sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.cp-sub-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: background 0.2s;
+    font-size: 0.83rem;
+}
+
+.cp-sub-row:hover {
+    background: rgba(240, 165, 0, 0.07);
+    color: var(--text-primary);
+}
+
+.cp-sub-name {
+    flex: 1;
+    color: var(--text-primary);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cp-sub-lang {
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.1rem 0.45rem;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.cp-sub-time {
+    font-size: 0.72rem;
+    white-space: nowrap;
+}
+
+/* Verdict badges */
+.cp-verdict {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    min-width: 28px;
+    text-align: center;
+}
+
+.verdict-ac {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+}
+
+.verdict-wa {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.verdict-tle {
+    background: rgba(251, 146, 60, 0.2);
+    color: #fb923c;
+}
+
+.verdict-ce {
+    background: rgba(167, 139, 250, 0.2);
+    color: #a78bfa;
+}
+
+.verdict-other {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+/* ── View all link ── */
+.cp-view-all {
+    display: inline-flex;
+    align-self: flex-start;
+    color: #f0a500;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: gap 0.2s;
+    gap: 0.3rem;
+}
+
+.cp-view-all:hover {
+    gap: 0.6rem;
+    text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .cp-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cp-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .cp-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

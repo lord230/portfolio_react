@@ -6,19 +6,16 @@ const UFOCursor = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
 
-    // Mouse position state
     const mousePos = useRef({ x: 0, y: 0 });
     const cursorPos = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
-        // Hide on mobile
-        if (window.matchMedia("(max-width: 768px)").matches) return;
+        if (window.matchMedia('(max-width: 768px)').matches) return;
 
         const onMouseMove = (e) => {
             mousePos.current = { x: e.clientX, y: e.clientY };
-            if (!isVisible) setIsVisible(true);
+            setIsVisible(true);
         };
-
         const onMouseDown = () => setIsClicking(true);
         const onMouseUp = () => setIsClicking(false);
 
@@ -26,46 +23,38 @@ const UFOCursor = () => {
         window.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mouseup', onMouseUp);
 
-        // Animation Loop
-        let animationFrameId;
+        const EASE = 0.12;
+        let animId;
 
-        const updateCursor = () => {
-            // Linear Interpolation (Lerp) for smooth following
-            // adjust 0.1 for speed/delay (lower = slower/smoother)
-            const ease = 0.15;
-
-            cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * ease;
-            cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * ease;
+        const tick = () => {
+            cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * EASE;
+            cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * EASE;
 
             if (cursorRef.current) {
                 const x = cursorPos.current.x;
                 const y = cursorPos.current.y;
-                // Center the cursor (adjust based on size)
                 cursorRef.current.style.transform = `translate3d(${x - 20}px, ${y - 20}px, 0)`;
-            }
 
-            // Rotate UFO slightly based on movement direction
-            if (cursorRef.current) {
                 const dx = mousePos.current.x - cursorPos.current.x;
-                const rotation = dx * 0.5; // simple tilt
                 const ufoEmoji = cursorRef.current.querySelector('.ufo-emoji');
                 if (ufoEmoji) {
-                    ufoEmoji.style.transform = `rotate(${Math.min(Math.max(rotation, -20), 20)}deg)`;
+                    const tilt = Math.min(Math.max(dx * 0.3, -20), 20);
+                    ufoEmoji.style.transform = `rotate(${tilt}deg)`;
                 }
             }
 
-            animationFrameId = requestAnimationFrame(updateCursor);
+            animId = requestAnimationFrame(tick);
         };
 
-        updateCursor();
+        tick();
 
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mouseup', onMouseUp);
-            cancelAnimationFrame(animationFrameId);
+            cancelAnimationFrame(animId);
         };
-    }, [isVisible]);
+    }, []);
 
     if (!isVisible) return null;
 

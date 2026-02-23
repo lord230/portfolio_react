@@ -1,13 +1,67 @@
 import React from 'react';
 
-const ShootingStars = () => {
-    return (
-        <div className="shooting-stars">
-            {[...Array(15)].map((_, i) => (
-                <div key={i} className="star"></div>
-            ))}
-        </div>
-    );
-};
+/* ── Static twinkling stars ── */
+const makeTwinklers = (count) =>
+    Array.from({ length: count }, (_, i) => ({
+        id: i,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        size: Math.random() < 0.6 ? 1 : Math.random() < 0.85 ? 2 : 3,
+        duration: (2.5 + Math.random() * 4).toFixed(2),
+        delay: (Math.random() * 6).toFixed(2),
+        opacity: (0.4 + Math.random() * 0.6).toFixed(2),
+    }));
+
+/* ── Shooting stars ── */
+const makeShooters = (count) =>
+    Array.from({ length: count }, (_, i) => ({
+        id: i,
+        /* start anywhere across the top 70% of the screen */
+        top: `${Math.random() * 70}%`,
+        left: `${Math.random() * 100}%`,
+        /* each shooter has its own travel time and staggered start */
+        duration: (3 + Math.random() * 5).toFixed(2),   // 3s – 8s
+        delay: (Math.random() * 12).toFixed(2),           // 0s – 12s
+        length: Math.floor(80 + Math.random() * 120),      // tail length px
+    }));
+
+const TWINKLERS = makeTwinklers(80);
+const SHOOTERS = makeShooters(12);
+
+const ShootingStars = () => (
+    <div className="star-canvas">
+        {/* static twinkling field */}
+        {TWINKLERS.map((s) => (
+            <span
+                key={`tw-${s.id}`}
+                className="twinkle-star"
+                style={{
+                    top: s.top,
+                    left: s.left,
+                    width: `${s.size}px`,
+                    height: `${s.size}px`,
+                    '--twinkle-duration': `${s.duration}s`,
+                    '--twinkle-delay': `${s.delay}s`,
+                    '--base-opacity': s.opacity,
+                }}
+            />
+        ))}
+
+        {/* shooting streaks */}
+        {SHOOTERS.map((s) => (
+            <span
+                key={`sh-${s.id}`}
+                className="shooting-streak"
+                style={{
+                    top: s.top,
+                    left: s.left,
+                    '--shoot-duration': `${s.duration}s`,
+                    '--shoot-delay': `${s.delay}s`,
+                    '--tail-length': `${s.length}px`,
+                }}
+            />
+        ))}
+    </div>
+);
 
 export default ShootingStars;
