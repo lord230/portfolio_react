@@ -4,6 +4,7 @@ import About from '../components/About';
 import Experience from '../components/Experience';
 import Research from '../components/Research';
 import Projects from '../components/Projects';
+import Blog from '../components/Blog';
 import Contact from '../components/Contact';
 import MoreAbout from '../components/MoreAbout';
 
@@ -39,6 +40,7 @@ const Home = () => {
             <Experience />
             <Research />
             <Projects />
+            <Blog />
             <Contact />
             <MoreAbout />
         </>

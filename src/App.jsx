@@ -7,6 +7,16 @@ import BlogListPage from './pages/BlogListPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import Footer from './components/Footer';
 import ShootingStars from './components/ShootingStars';
+import UFOCursor from './components/UFOCursor';
+import ProjectDetailPage from './pages/ProjectDetailPage';
+import Hero from './components/Hero';
+import ScrollToTop from './components/ScrollToTop';
+import About from './components/About';
+import Experience from './components/Experience';
+import Research from './components/Research';
+import Projects from './components/Projects';
+import MoreAbout from './components/MoreAbout';
+import Contact from './components/Contact';
 import './index.css';
 
 function App() {
@@ -32,11 +42,23 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/project/:id" element={<ProjectDetailPage />} />
+          <Route path="/" element={
+            <>
+              <Hero />
+              <About />
+              <Experience />
+              <Research />
+              <Projects />
+              <MoreAbout />
+              <Contact />
+            </>
+          } />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/blogs" element={<BlogListPage />} />
           <Route path="/blogs/:id" element={<BlogDetailPage />} />
@@ -44,6 +66,7 @@ function App() {
 
         <Footer />
         <ShootingStars />
+        <UFOCursor />
       </div>
     </Router>
   );

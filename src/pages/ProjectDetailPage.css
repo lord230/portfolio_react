@@ -1,0 +1,470 @@
+/* =========================================================
+   ProjectDetailPage — Premium Redesign
+   ========================================================= */
+
+/* ── Root ── */
+.pdp-root {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.pdp-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ── NOT FOUND ── */
+.pdp-not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdp-not-found-inner {
+    text-align: center;
+    padding: 3rem;
+}
+
+.pdp-404-emoji {
+    font-size: 5rem;
+}
+
+.pdp-not-found-inner h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin: 1rem 0 0.5rem;
+}
+
+.pdp-not-found-inner p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ── HERO SECTION ── */
+.pdp-hero {
+    position: relative;
+    padding: 140px 0 70px;
+    overflow: hidden;
+}
+
+.pdp-hero-glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(100, 108, 255, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pdp-hero>.pdp-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* back link */
+.pdp-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 3rem;
+    transition: color 0.2s, gap 0.2s;
+}
+
+.pdp-back:hover {
+    color: var(--text-primary);
+    gap: 0.7rem;
+}
+
+/* hero body */
+.pdp-hero-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.pdp-project-type {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    background: rgba(167, 139, 250, 0.12);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 0.5rem;
+    width: fit-content;
+}
+
+.pdp-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-family: 'Chakra Petch', 'Rajdhani', sans-serif;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+    background: linear-gradient(135deg, var(--text-primary) 60%, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pdp-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 650px;
+    margin: 0 0 1.5rem;
+}
+
+/* tech chips */
+.pdp-tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.pdp-tech-chip {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.85rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pdp-tech-chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--chip-color, #6c757d);
+    opacity: 0.1;
+    border-radius: inherit;
+}
+
+.pdp-tech-chip:hover {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* CTA buttons */
+.pdp-cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ── BUTTONS ── */
+.pdp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.pdp-btn-primary {
+    background: linear-gradient(135deg, #646cff, #a78bfa);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 20px rgba(100, 108, 255, 0.3);
+}
+
+.pdp-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(100, 108, 255, 0.45);
+}
+
+.pdp-btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pdp-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+/* ── CONTENT AREA ── */
+.pdp-content {
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+
+/* ── SECTION ── */
+.pdp-section {
+    animation: pdpFadeUp 0.6s ease both;
+}
+
+@keyframes pdpFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pdp-section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.pdp-label-icon {
+    font-size: 1rem;
+}
+
+/* ── GLASS CARDS ── */
+.pdp-glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    padding: 2rem 2.2rem;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.pdp-glass-card:hover {
+    border-color: rgba(167, 139, 250, 0.25);
+    transform: translateY(-3px);
+}
+
+/* Colour accents on left border */
+.pdp-card-problem {
+    border-left: 3px solid #f97316;
+}
+
+.pdp-card-approach {
+    border-left: 3px solid #3b82f6;
+}
+
+.pdp-card-challenge {
+    border-left: 3px solid #ef4444;
+}
+
+.pdp-card-solution {
+    border-left: 3px solid #22c55e;
+}
+
+.pdp-card-results {
+    border-left: 3px solid #a78bfa;
+}
+
+.pdp-body-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin: 0;
+}
+
+/* card badges */
+.pdp-card-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.challenge-badge {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+.solution-badge {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+/* ── SIDE BY SIDE ── */
+.pdp-side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* ── STEP CARDS ── */
+.pdp-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+.pdp-step-card {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+}
+
+.pdp-step-card:hover {
+    background: rgba(100, 108, 255, 0.06);
+    border-color: rgba(167, 139, 250, 0.3);
+    transform: translateY(-3px);
+}
+
+.pdp-step-num {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: 'Chakra Petch', 'Rajdhani', monospace;
+    color: rgba(167, 139, 250, 0.3);
+    line-height: 1;
+    min-width: 3rem;
+    letter-spacing: -0.05em;
+    transition: color 0.25s;
+}
+
+.pdp-step-card:hover .pdp-step-num {
+    color: rgba(167, 139, 250, 0.7);
+}
+
+.pdp-step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.4rem;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.pdp-step-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ── RESULTS ── */
+.pdp-stat-wrap {
+    margin-bottom: 1.5rem;
+}
+
+.pdp-stat-wrap:last-child {
+    margin-bottom: 0;
+}
+
+.pdp-result-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 0.75rem;
+}
+
+.pdp-stat-bar-bg {
+    position: relative;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    height: 8px;
+    overflow: visible;
+}
+
+.pdp-stat-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #646cff, #a78bfa);
+    transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+}
+
+.pdp-stat-bar-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #a78bfa;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.7);
+}
+
+.pdp-stat-label {
+    position: absolute;
+    right: 0;
+    top: -24px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #a78bfa;
+}
+
+/* ── FOOTER NAV ── */
+.pdp-footer-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    flex-wrap: wrap;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .pdp-hero {
+        padding: 120px 0 50px;
+    }
+
+    .pdp-steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pdp-side-by-side {
+        grid-template-columns: 1fr;
+    }
+
+    .pdp-footer-nav {
+        flex-direction: column;
+    }
+
+    .pdp-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pdp-glass-card {
+        padding: 1.5rem;
+    }
+}
