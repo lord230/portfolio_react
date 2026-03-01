@@ -1,0 +1,13 @@
+Lifenumber: Check Bhagyank and Moolank
+snake_game: 
+Sorting_visuals: 
+flying_rock_paper_scissors: Time pass ke liye bana diya hain maine bass aur kuch nahi ... feels like utra hi firu inn hawa
+auto-scheduling: 
+Mandelbrot: 
+Hand-Gesture: 
+face_cursor_movement: 
+Weather_app: ERROR HTTP Error 404: Not Found
+LAN-TRANSFER: A Python-based file transfer utility for sharing files and folders over a local network (LAN) — with both GUI (Tkinter) and headless CLI versions.
+Clipperboard: Universal Clipboard Sync (Mac, Windows, Linux)
+custom_C-_Neural_network: 
+Rotating_shapes: 

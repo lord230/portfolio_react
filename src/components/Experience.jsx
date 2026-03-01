@@ -1,9 +1,16 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Experience = () => {
     return (
-        <section id="experience" class="experience">
-            <div className="container">
+        <section id="experience" className="experience">
+            <motion.div
+                className="container"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            >
                 <h2 className="section-title">Experience</h2>
                 <div className="experience-content">
                     <div className="experience-item">
@@ -22,7 +29,7 @@ const Experience = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };

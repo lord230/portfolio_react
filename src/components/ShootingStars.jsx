@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* ── Static twinkling stars ── */
 const makeTwinklers = (count) =>
@@ -28,40 +28,64 @@ const makeShooters = (count) =>
 const TWINKLERS = makeTwinklers(80);
 const SHOOTERS = makeShooters(12);
 
-const ShootingStars = () => (
-    <div className="star-canvas">
-        {/* static twinkling field */}
-        {TWINKLERS.map((s) => (
-            <span
-                key={`tw-${s.id}`}
-                className="twinkle-star"
-                style={{
-                    top: s.top,
-                    left: s.left,
-                    width: `${s.size}px`,
-                    height: `${s.size}px`,
-                    '--twinkle-duration': `${s.duration}s`,
-                    '--twinkle-delay': `${s.delay}s`,
-                    '--base-opacity': s.opacity,
-                }}
-            />
-        ))}
+const ShootingStars = () => {
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-        {/* shooting streaks */}
-        {SHOOTERS.map((s) => (
-            <span
-                key={`sh-${s.id}`}
-                className="shooting-streak"
-                style={{
-                    top: s.top,
-                    left: s.left,
-                    '--shoot-duration': `${s.duration}s`,
-                    '--shoot-delay': `${s.delay}s`,
-                    '--tail-length': `${s.length}px`,
-                }}
-            />
-        ))}
-    </div>
-);
+    useEffect(() => {
+        if (window.matchMedia('(max-width: 768px)').matches) return;
+
+        const handleMouseMove = (e) => {
+            // Calculate mouse position relative to center of screen (-1 to 1)
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            setMousePos({ x, y });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
+    return (
+        <div
+            className="star-canvas"
+            style={{
+                transform: `translate(${mousePos.x * -15}px, ${mousePos.y * -15}px)`,
+                transition: 'transform 0.1s ease-out'
+            }}
+        >
+            {/* static twinkling field */}
+            {TWINKLERS.map((s) => (
+                <span
+                    key={`tw-${s.id}`}
+                    className="twinkle-star"
+                    style={{
+                        top: s.top,
+                        left: s.left,
+                        width: `${s.size}px`,
+                        height: `${s.size}px`,
+                        '--twinkle-duration': `${s.duration}s`,
+                        '--twinkle-delay': `${s.delay}s`,
+                        '--base-opacity': s.opacity,
+                    }}
+                />
+            ))}
+
+            {/* shooting streaks */}
+            {SHOOTERS.map((s) => (
+                <span
+                    key={`sh-${s.id}`}
+                    className="shooting-streak"
+                    style={{
+                        top: s.top,
+                        left: s.left,
+                        '--shoot-duration': `${s.duration}s`,
+                        '--shoot-delay': `${s.delay}s`,
+                        '--tail-length': `${s.length}px`,
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
 
 export default ShootingStars;

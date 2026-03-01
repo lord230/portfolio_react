@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
     const form = useRef();
@@ -28,26 +29,44 @@ const Contact = () => {
 
     return (
         <section id="contact" className="contact">
-            <div className="container">
+            <motion.div
+                className="container"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            >
                 <h2 className="section-title">Get In Touch</h2>
-                <div className="contact-content">
+                <div className="contact-grid">
                     <div className="contact-info">
-                        <h3>Let's Connect</h3>
+                        <h3><i className="fas fa-paper-plane"></i> Let's Connect</h3>
                         <p className="contact-desc">
                             I'm currently looking for new opportunities in Machine Learning.
                             Whether you have a question or just want to say hi, I'll try my best to get back to you!
                         </p>
-                        <div className="contact-item">
-                            <i className="fas fa-envelope"></i>
-                            <a href="mailto:1amit1verma@gmail.com">1amit1verma@gmail.com</a>
-                        </div>
-                        <div className="contact-item">
-                            <i className="fab fa-github"></i>
-                            <a href="https://github.com/lord230" target="_blank" rel="noreferrer">github.com/lord230</a>
-                        </div>
-                        <div className="contact-item">
-                            <i className="fab fa-linkedin"></i>
-                            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noreferrer">LinkedIn</a>
+
+                        <div className="contact-methods">
+                            <a href="mailto:1amit1verma@gmail.com" className="contact-method-card">
+                                <div className="c-icon"><i className="fas fa-envelope"></i></div>
+                                <div>
+                                    <h4>Email</h4>
+                                    <span>1amit1verma@gmail.com</span>
+                                </div>
+                            </a>
+                            <a href="https://github.com/lord230" target="_blank" rel="noreferrer" className="contact-method-card">
+                                <div className="c-icon"><i className="fab fa-github"></i></div>
+                                <div>
+                                    <h4>GitHub</h4>
+                                    <span>@lord230</span>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noreferrer" className="contact-method-card">
+                                <div className="c-icon"><i className="fab fa-linkedin-in"></i></div>
+                                <div>
+                                    <h4>LinkedIn</h4>
+                                    <span>Connect with me</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
 
@@ -74,7 +93,7 @@ const Contact = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };

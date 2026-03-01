@@ -5,6 +5,7 @@ const UFOCursor = () => {
     const beamRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
 
     const mousePos = useRef({ x: 0, y: 0 });
     const cursorPos = useRef({ x: 0, y: 0 });
@@ -15,6 +16,12 @@ const UFOCursor = () => {
         const onMouseMove = (e) => {
             mousePos.current = { x: e.clientX, y: e.clientY };
             setIsVisible(true);
+
+            // Check for interactive elements
+            if (e.target) {
+                const interactive = e.target.closest('a, button, input, textarea, select, .interactive, .project-card, .major-project-card, .exploratory-project-card, .contact-method-card');
+                setIsHovering(!!interactive);
+            }
         };
         const onMouseDown = () => setIsClicking(true);
         const onMouseUp = () => setIsClicking(false);
@@ -59,7 +66,7 @@ const UFOCursor = () => {
     if (!isVisible) return null;
 
     return (
-        <div ref={cursorRef} className={`ufo-cursor ${isClicking ? 'beaming' : ''}`}>
+        <div ref={cursorRef} className={`ufo-cursor ${isClicking ? 'beaming' : ''} ${isHovering ? 'hovering' : ''}`}>
             <div className="ufo-emoji">🛸</div>
             <div ref={beamRef} className="ufo-beam"></div>
         </div>

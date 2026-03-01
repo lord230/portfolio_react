@@ -1,4 +1,35 @@
 export const majorProjects = {
+    'smart-pricing': {
+        title: 'Smart Product Pricing (ML Challenge 2025)',
+        shortDescription: 'A multi-modal deep learning regression system that predicts product prices using text and images, built for the Amazon ML Challenge 2025.',
+        description: 'This competition-grade multimodal deep learning engineering project predicts product prices by learning semantic meaning from text (title, description, quantity) and visual cues from images, then fuses them into a unified representation. This approach mirrors how real-world pricing systems are built in large e-commerce platforms.',
+        techStack: ['Python', 'Deep Learning', 'Hugging Face', 'Transformers', 'MiniLM', 'EfficientNet-B0', 'PyTorch', 'Hackathons'],
+        problemStatement: 'In modern e-commerce, predicting product prices relies on multiple data modalities. Relying solely on one modality leads to inaccurate pricing. Real-world pricing systems require a multi-modal approach that learns both semantic textual meaning and visual product cues simultaneously.',
+        approach: 'Designed an end-to-end multimodal regression model combining a Text Encoder (nreimers/MiniLM-L6-H384-uncased) and an Image Encoder (EfficientNet-B0 pretrained on ImageNet). I projected both embeddings into 256D representations, concatenated them, and passed them through a fusion network (512 → 256 → 64 → 1) with GELU, BatchNorm, and Dropout. Prices were skewed, so I applied a log1p target transformation to reduce outlier dominance and stabilize gradients. I utilized a two-phase training strategy, optimizing first for smooth L1 (stable training) and then Differentiable SMAPE (metric alignment), paired with differential learning rates to prevent overwriting pretrained knowledge.',
+        executionSteps: [
+            {
+                title: 'Text Encoding',
+                description: 'Used a MiniLM sentence transformer to capture semantic meaning, product attributes, and contextual pricing signals, generating a 384-dimensional embedding.'
+            },
+            {
+                title: 'Image Encoding',
+                description: 'Employed an EfficientNet-B0 CNN to capture visual quality, brand cues, packaging richness, and category signals, generating a 1280-dimensional image embedding.'
+            },
+            {
+                title: 'Multi-Modal Fusion',
+                description: 'Projected both embeddings to 256D, concatenated them, and reduced dimensionality through dense network layers, implementing mixed precision training and cosine warm restarts for memory and speed optimization.'
+            },
+            {
+                title: 'Strategic Metric Optimization',
+                description: 'Implemented log-target transformation on prices to stabilize gradients. The training utilized a two-phase optimization (Smooth L1 followed by SMAPE loss) with differential learning rates for individual encoder networks and fusion head.'
+            }
+        ],
+        challenges: 'Skewed price distributions leading to outlier dominance, unstable gradients, and metric misalignment when optimizing directly for competition metrics on a multimodal network.',
+        solutions: 'Applied log1p transformations, differential learning rates (e.g., Text Encoder 5e-6, Fusion Head 1e-5), and a two-phase training strategy shifting from Smooth L1 to differentiable SMAPE to perfectly align with leaderboard constraints.',
+        results: 'Achieved 20.68% SMAPE on the validation set and 18.59% SMAPE on final training, exhibiting excellent generalization without overfitting, resulting in a competitive score for a multi-modal regression task.',
+        githubLink: 'https://github.com/lord230/Amazon-ML',
+        demoLink: null
+    },
     'tumor': {
         title: 'Brain Tumor Detection with GradCAM',
         shortDescription: 'A medical AI application that classifies brain MRI scans into four categories and provides visual heatmap explanations using GradCAM — bridging the gap between deep learning accuracy and clinical trustworthiness.',
@@ -88,14 +119,30 @@ export const majorProjects = {
 };
 
 export const exploratoryProjects = {
+    'aimlverse': {
+        title: 'AI ML Verse',
+        description: 'An interactive online lab converting abstract AI math and models into visual, hands-on browser simulations.',
+        domain: 'AI Education & Visualizations',
+        whatILearned: 'Learned to translate complex AI math into interactive visual modules using React and Next.js.',
+        keyConcepts: 'Machine Learning, Transformers, Data Visualization',
+        githubLink: null,
+        demoLink: 'https://www.aimlverse.in',
+        techStack: ['Web Logic', 'Machine Learning'],
+        idea: 'Build a platform that makes AI models visual and interactive, replacing boring static textbook diagrams.',
+        backstory: 'I was tired of staring at Greek letters in ML textbooks pretending to understand them. So I built this to actually see what the math was doing. Turns out, visualizing self-attention is way cooler than reading about it!'
+    },
     'life-number': {
         title: 'Life Number Calculator',
-        description: 'A fascinating project exploring numerical patterns and life calculations based on numerology principles.',
+        description: 'A fascinating numerology app to calculate and check your Bhagyank and Moolank based on numerical patterns.',
         domain: 'Numerology & Algorithms',
         whatILearned: 'Learned how to implement mathematical logic into a user-friendly web interface using Streamlit.',
         keyConcepts: 'Algorithmic Logic, User Input Handling, Streamlit UI',
         githubLink: 'https://github.com/lord230/Lifenumber',
-        demoLink: 'https://lord230.github.io/Lifenumber/'
+        demoLink: 'https://lord230.github.io/Lifenumber/',
+        techStack: ['Maths Based', 'Web Logic'],
+        idea: 'Translate traditional numerology (Bhagyank/Moolank) algorithms into a slick Python web app.',
+        backstory: 'My relatives kept asking me about numerology and destiny. Instead of arguing about it, I wrote a Python script and hosted it as a GitHub webpage to calculate it for them automatically. Tech-support son level up!',
+        maths: 'Digit sum operations (equivalent to modulo 9 arithmetic) to iteratively reduce dates and names into single fundamental digits.'
     },
     'snake': {
         title: 'Snake Game',
@@ -104,7 +151,10 @@ export const exploratoryProjects = {
         whatILearned: 'Mastered the HTML5 Canvas API and game loop mechanics (updating state, rendering).',
         keyConcepts: 'Canvas API, Game Loops, Collision Detection',
         githubLink: 'https://github.com/lord230/snake_game',
-        demoLink: 'https://lord230.github.io/snake_game/'
+        demoLink: 'https://lord230.github.io/snake_game/',
+        techStack: ['Web Logic'],
+        idea: 'Recreate the nostalgic Nokia Snake game mechanics entirely in the browser using HTML5 Canvas.',
+        backstory: 'Because you can\'t call yourself a real CS student without building Snake at least once. I also highly utilized this to procrastinate on actual university assignments.'
     },
     'sorting': {
         title: 'Sorting Algorithm Visualizer',
@@ -113,16 +163,24 @@ export const exploratoryProjects = {
         whatILearned: 'Deepened understanding of sorting algorithms by visualizing their step-by-step execution.',
         keyConcepts: 'Algorithm Complexity, State Management, Animation',
         githubLink: 'https://github.com/lord230/Sorting_visuals',
-        demoLink: 'https://sortingvisual.streamlit.app/'
+        demoLink: 'https://sortingvisual.streamlit.app/',
+        techStack: ['Maths Based', 'Web Logic'],
+        idea: 'Map array values to bar heights and animate swapping operations to visualize time complexity.',
+        backstory: 'Watching arrays sort themselves is oddly therapeutic. Plus, I needed visual proof that Bubble Sort really is as terrible as my professors claimed it was.',
+        maths: 'Algorithmic time and space complexities ranging from O(N log N) to O(N²), visualized through iterative index comparisons and matrix swaps.'
     },
     'rock-paper-scissors': {
         title: 'Flying Rock Paper Scissors',
-        description: 'A browser-based simulation where rock, paper, and scissors emojis float around the screen, collide, and convert each other until one type dominates.',
+        description: 'A fun, lightweight browser simulation built for time-pass where emojis collide and convert each other.',
         domain: 'Simulation & Emergent Behavior',
         whatILearned: 'Explored how simple rules (collision, conversion) can lead to complex and interesting group behaviors.',
         keyConcepts: 'Particle Systems, Collision Logic, Simulation',
         githubLink: 'https://github.com/lord230/flying_rock_paper_scissors',
-        demoLink: 'https://lord230.github.io/flying_rock_paper_scissors/'
+        demoLink: 'https://lord230.github.io/flying_rock_paper_scissors/',
+        techStack: ['Web Logic', 'Maths Based'],
+        idea: 'Create a particle simulation where Rock, Paper, and Scissors objects hunt their prey and flee their predators.',
+        backstory: 'Time pass ke liye bana diya hain maine bass aur kuch nahi. Seriously, I just wanted to watch a massive chaotic brawl of emojis fighting to the death on my screen.',
+        maths: '2D Euclidean distance calculations for collision detection, combined with simple vector math for velocity tracking and bounding-box bouncing physics.'
     },
     'timetable': {
         title: 'Class Timetable Generator',
@@ -131,7 +189,11 @@ export const exploratoryProjects = {
         whatILearned: 'Solved a constraint satisfaction problem to generate conflict-free schedules.',
         keyConcepts: 'Constraint Satisfaction, Pandas, Automation',
         githubLink: 'https://github.com/lord230/auto-scheduling',
-        demoLink: 'https://class-c.streamlit.app/'
+        demoLink: 'https://class-c.streamlit.app/',
+        techStack: ['Hackathons', 'Maths Based', 'Web Logic'],
+        idea: 'Use constraint satisfaction algorithms and Pandas to crunch class requirements without teacher overlaps.',
+        backstory: 'My college scheduling system was a chaotic mess, and my sleep schedule was suffering because of 8 AMs. So I coded a constraint solver to fix what the administration couldn\'t. Spoiler: didn\'t get out of the 8 AMs.',
+        maths: 'Constraint satisfaction problem solving and combinatorial matrix optimization to generate conflict-free multi-dimensional schedules.'
     },
     'mandelbrot': {
         title: 'Mandelbrot Set',
@@ -140,7 +202,11 @@ export const exploratoryProjects = {
         whatILearned: 'Understood the beauty of fractals and how efficient computation is needed for rendering complex math.',
         keyConcepts: 'Complex Numbers, Fractals, Performance Optimization',
         githubLink: 'https://github.com/lord230/Mandelbrot',
-        demoLink: 'https://mandelbrot-seven.vercel.app/'
+        demoLink: 'https://mandelbrot-seven.vercel.app/',
+        techStack: ['Maths Based'],
+        idea: 'Render the infinite complexity of the Mandelbrot set by checking the divergence of complex numbers.',
+        backstory: 'I learned about fractals in a math lecture and wanted to zoom into infinity. 10 hours and a nearly fried CPU later, I had a colorful rendering and a very hot laptop.',
+        maths: 'Iterative calculation of Z_{n+1} = Z_n² + C in the complex plane, using absolute value thresholds to test for divergence to infinity.'
     },
     'gesture': {
         title: 'Gesture-based Control',
@@ -149,7 +215,10 @@ export const exploratoryProjects = {
         whatILearned: 'Learned to use MediaPipe for real-time hand tracking and mapping coordinates to system actions.',
         keyConcepts: 'Computer Vision, MediaPipe, Human-Computer Interaction',
         githubLink: 'https://github.com/lord230/Hand-Gesture',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Machine Learning'],
+        idea: 'Track hand landmarks and map pinch/swipe gestures to OS-level mouse control using MediaPipe.',
+        backstory: 'I wanted to feel like Iron Man moving holograms around in mid-air. I only had a cheap webcam and Python, but hey, it actually worked! Tony Stark would be mildly impressed.'
     },
     'face-cursor': {
         title: 'Face Cursor Movement',
@@ -158,34 +227,46 @@ export const exploratoryProjects = {
         whatILearned: 'Implemented head pose estimation to control the mouse cursor hands-free.',
         keyConcepts: 'Facial Landmarks, Pose Estimation, dlib',
         githubLink: 'https://github.com/lord230/face_cursor_movement',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Machine Learning'],
+        idea: 'Calculate head pitch and yaw using dlib facial landmarks to drive the mouse cursor position.',
+        backstory: 'Using a mouse requires moving your hand. Sometimes you\'re wrapped in a blanket on a winter night and moving your arm is just too much work. Peak laziness drives peak innovation.'
     },
     'weather': {
         title: 'Weather Prediction App',
-        description: 'A Python desktop application (Tkinter) that combines a Deep Learning model (Keras/TensorFlow) for future temperature prediction and a traditional ML model (Joblib) for rain classification — all in one GUI. The user inputs five recent temperatures plus humidity and wind speed; the app validates the data (blocks inputs where any two temps differ by more than 5°C) and runs both models in parallel to display a predicted temperature and a yes/no rain forecast.',
+        description: 'A desktop GUI built with Tkinter that models future temperatures (Keras) and predicts rain (Joblib) concurrently with built-in input validations.',
         domain: 'Deep Learning & Applied ML',
         whatILearned: 'Learned how to load and run trained Keras (.h5) and Joblib models inside a GUI app, and how to build a multi-model inference pipeline with input validation.',
         keyConcepts: 'Keras/TensorFlow, Joblib, Tkinter GUI, Deep Learning Inference, Input Validation, Multi-model Pipeline',
         githubLink: 'https://github.com/lord230/Weather_app',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Machine Learning'],
+        idea: 'Run a deep learning model for temperature and a classical ML model for rain classification side-by-side.',
+        backstory: 'I got rained on one too many times because a generic weather widget lied to me. I decided to train my own model to predict if I needed an umbrella or not.'
     },
     'lan': {
         title: 'LAN Transfer',
-        description: 'A fast and secure file transfer application designed for local network environments.',
+        description: 'A Python-based file transfer utility for sharing files and folders over a local network, featuring both GUI (Tkinter) and headless CLI versions.',
         domain: 'Networking',
         whatILearned: 'Understood socket programming and file transfer protocols over a local network.',
         keyConcepts: 'Sockets, TCP/IP, File I/O',
         githubLink: 'https://github.com/lord230/LAN-TRANSFER',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Networking'],
+        idea: 'Establish direct TCP/IP socket connections between devices on the same local network for fast file I/O.',
+        backstory: 'Moving project files between my laptop and PC via USB was feeling very 2012. Cloud sync was too slow. Built this because absolute impatience is a developer\'s greatest virtue.'
     },
     'clipperboard': {
         title: 'Clipperboard',
-        description: 'An advanced clipboard management tool that enhances text processing and productivity.',
+        description: 'A seamless Universal Clipboard Sync tool designed to work flawlessly across Mac, Windows, and Linux environments.',
         domain: 'Productivity Tools',
         whatILearned: 'Explored system clipboard access and managing improved workflows.',
         keyConcepts: 'System Integration, Clipboard API, Python Scripting',
         githubLink: 'https://github.com/lord230/Clipperboard',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Productivity'],
+        idea: 'Create a background daemon that intercepts clipboard copy events and syncs the payload to connected devices.',
+        backstory: 'I copied something on my Windows PC, tried to paste it on my Mac, and aggressively hammered Ctrl+V before realizing I am not in the Apple Ecosystem... so Clipperboard was born.'
     },
     'neural': {
         title: 'C++ Neural Network',
@@ -194,16 +275,24 @@ export const exploratoryProjects = {
         whatILearned: 'Built a neural network from scratch to understand the math behind backpropagation.',
         keyConcepts: 'C++, Linear Algebra, Backpropagation',
         githubLink: 'https://github.com/lord230/custom_C-_Neural_network',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Machine Learning', 'Maths Based'],
+        idea: 'Implement forward passes, loss calculation, gradients, and backpropagation in raw C++ without libraries.',
+        backstory: 'PyTorch makes building neural networks too easy. I thought to myself, "Why not suffer a bit?" So I wrote one from scratch in pure C++ to truly appreciate the pain of raw calculus.',
+        maths: 'Extensive use of matrix dot products, activation function calculus (derivatives for gradient descent), and the chain rule for backpropagation.'
     },
     'rotation': {
         title: 'Rotating 3D Shapes Visualizer',
-        description: 'A Python desktop app that lets you visualize and interact with rotating 3D shapes — Torus, Cube, and Tetrahedron — rendered in real-time using rotation matrices and perspective projection. The GUI (Tkinter + NumPy) lets you adjust rotation speed, shape scale, and toggle rotation per axis (X/Y/Z), with a built-in "How it Works" window explaining the linear algebra behind the renderer.',
+        description: 'A Python desktop app rendering 3D shapes (Torus, Cube, Tetrahedron) in real-time using NumPy rotation matrices and perspective projection.',
         domain: 'Mathematics & Computer Graphics',
         whatILearned: 'Built a 3D-to-2D perspective projection pipeline from scratch using NumPy rotation matrices, and learned how GUI animation loops work in Tkinter.',
         keyConcepts: 'Rotation Matrices, Perspective Projection, Tkinter GUI, NumPy, Real-time Animation',
         githubLink: 'https://github.com/lord230/Rotating_shapes',
-        demoLink: null
+        demoLink: null,
+        techStack: ['Maths Based'],
+        idea: 'Project 3D vertices onto a 2D plane by continuously multiplying them against dynamic rotation matrices.',
+        backstory: 'Linear algebra class was making my head spin. I decided the best coping mechanism was writing code to make 3D shapes spin on my screen instead.',
+        maths: '3D rotation matrices (Euler angles) multiplied by 3D vectors mapping to affine transformations, followed by perspective division (Z-divide) to map (X,Y,Z) onto a 2D (X,Y) screen space.'
     }
 };
 

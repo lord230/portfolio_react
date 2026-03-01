@@ -1,9 +1,16 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Research = () => {
     return (
-        <section id="research" class="research">
-            <div className="container">
+        <section id="research" className="research">
+            <motion.div
+                className="container"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            >
                 <h2 className="section-title">Research Projects</h2>
                 <div className="research-grid">
                     <div className="research-card">
@@ -21,7 +28,7 @@ const Research = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };
