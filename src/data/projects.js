@@ -140,7 +140,7 @@ export const exploratoryProjects = {
         whatILearned: 'Understood the beauty of fractals and how efficient computation is needed for rendering complex math.',
         keyConcepts: 'Complex Numbers, Fractals, Performance Optimization',
         githubLink: 'https://github.com/lord230/Mandelbrot',
-        demoLink: 'https://lord230.github.io/Mandelbrot/'
+        demoLink: 'https://mandelbrot-seven.vercel.app/'
     },
     'gesture': {
         title: 'Gesture-based Control',
