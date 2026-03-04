@@ -70,7 +70,7 @@ export const majorProjects = {
         challenges: 'The primary challenge was class imbalance — the "No Tumor" class had roughly half the samples of the tumor classes, causing early models to be biased. Real-time GradCAM generation introduced latency (~1.5s per scan on CPU), which was noticeable in the GUI. Additionally, Meningioma and Glioma share visual similarities in MRI texture, making them the hardest pair to distinguish.',
         solutions: 'Class imbalance was addressed with weighted random sampling during training and class-weighted CrossEntropyLoss, improving minority class recall from 71% to 94%. GUI latency was reduced by caching the GradCAM computation and running it in a separate thread so the UI stayed responsive. For the Meningioma/Glioma confusion, fine-tuning the last two Dense blocks significantly improved inter-class discrimination.',
         results: 'Achieved 98% overall accuracy on the test set. Per-class F1-scores: Glioma 0.98, Meningioma 0.96, Pituitary 0.99, No Tumor 0.99. GradCAM heatmaps accurately highlighted tumor regions in 95%+ of correctly classified scans. The GUI enables a full diagnosis workflow — upload, predict, explain — in under 3 seconds.',
-        githubLink: 'https://github.com/lord230/tumore_detection_v1',
+        githubLink: 'https://github.com/lord230/Tumor-GradCam.git',
         demoLink: null
     },
     'sentiment': {
