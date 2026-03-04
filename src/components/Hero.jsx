@@ -91,7 +91,7 @@ const Hero = () => {
                     <motion.div className="hero-buttons" variants={itemVariants}>
                         <MagneticButton href="#projects" className="btn btn-primary">View Projects</MagneticButton>
                         <MagneticButton href="#contact" className="btn btn-secondary">Get In Touch</MagneticButton>
-                        <MagneticButton href="AV_RESUME.pdf" className="btn btn-secondary" download>Download CV</MagneticButton>
+                        <MagneticButton href="Resume_AV.pdf" className="btn btn-secondary" download>Download CV</MagneticButton>
                     </motion.div>
                 </motion.div>
 
