@@ -113,7 +113,7 @@ export const majorProjects = {
         challenges: 'Sarcasm and irony are fundamentally difficult for bag-of-words models — "Great, another Monday" reads as positive without context. The dataset was domain-specific (movie reviews), causing accuracy to drop to 76% when tested on tweets, which use slang, abbreviations, and emoji. Class imbalance wasn\'t an issue in IMDB, but was a major concern in the Twitter subset (60% negative).',
         solutions: 'For sarcasm, added a feature layer that flags high positive-word density paired with low overall review score as a potential sarcasm signal — a lightweight heuristic that improved cross-domain F1 by 4%. Domain shift was mitigated by mixing 15% Twitter data into the training set and using subword-level bigrams for slang robustness. Twitter class imbalance was handled with SMOTE oversampling on the TF-IDF feature matrix.',
         results: 'Achieved 88% accuracy on IMDB test set. Cross-domain accuracy on Twitter: 79% (up from 76% baseline). F1-score: 0.89 (positive), 0.88 (negative). Inference latency: ~2ms per prediction via the Flask API, suitable for real-time use. Model size: 18MB (vectorizer + classifier combined), deployable on a free-tier server.',
-        githubLink: 'https://github.com/lord230/sentiment-analysis',
+        githubLink: 'https://github.com/lord230/Sentiment.git',
         demoLink: null
     }
 };
