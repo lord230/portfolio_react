@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import AdminPage from './pages/AdminPage';
@@ -67,6 +68,7 @@ function App() {
         <Footer />
         <ShootingStars />
         <UFOCursor />
+        <Analytics />
       </div>
     </Router>
   );
