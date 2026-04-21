@@ -57,7 +57,7 @@ const Hero = () => {
                     <motion.div className="hero-buttons" variants={itemVariants} style={{ display: 'flex', gap: '1rem' }}>
                         <a href="#projects" style={{ textDecoration: 'none' }}><PixelButton isPrimary={true}>View Projects</PixelButton></a>
                         <a href="#contact" style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Get In Touch</PixelButton></a>
-                        <a href="Resume_AV.pdf" download style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Download CV</PixelButton></a>
+                        <a href="/Resume_av.pdf" download style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Download CV</PixelButton></a>
                     </motion.div>
                 </motion.div>
 
