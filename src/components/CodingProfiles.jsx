@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PixelCard from './PixelCard';
 import './CodingProfiles.css';
 
 const GITHUB_USER = 'lord230';
@@ -41,7 +42,7 @@ const timeAgo = (sec) => {
 const Stat = ({ label, value, accent }) => (
     <div className="cp-stat">
         <span className="cp-stat-value" style={accent ? { color: accent } : {}}>{value ?? '—'}</span>
-        <span className="cp-stat-label">{label}</span>
+        <span className="cp-stat-label" style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem' }}>{label}</span>
     </div>
 );
 
@@ -119,38 +120,34 @@ const CodingProfiles = () => {
     }
 
     return (
-        <section id="coding" className="cp-section">
+        <section id="coding" className="cp-section" style={{ marginTop: '4rem' }}>
             <div className="container">
-                <h2 className="section-title">Coding Activity</h2>
-                <p className="cp-subtitle">
-                    Live stats from GitHub &amp; Codeforces — refreshed on every visit.
+                <h2 className="section-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', textAlign: 'center', marginBottom: '1rem' }}><i className="fas fa-code"></i> CODING_ACTIVITY</h2>
+                <p className="cp-subtitle" style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '3rem' }}>
+                    {'>'} Live stats from GitHub {'&'} Codeforces
                 </p>
 
                 {loading ? (
-                    <div className="cp-loading">
-                        <div className="cp-spinner" />
-                        <span>Fetching profiles…</span>
+                    <div className="cp-loading" style={{ fontFamily: 'var(--font-sans)' }}>
+                        <span>[ Fetching profiles... ]</span>
                     </div>
                 ) : (
-                    <div className="cp-grid">
+                    <div className="cp-grid" style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
 
                         {/* ══ GITHUB PANEL ══ */}
-                        <div className="cp-card cp-card-github">
-                            <div className="cp-card-header">
+                        <PixelCard isMajor={true} className="cp-card cp-card-github">
+                            <div className="cp-card-header" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', borderBottom: '2px dotted var(--border-color)', paddingBottom: '0.5rem' }}>
                                 <div className="cp-platform-logo"><GitHubIcon /></div>
                                 <div>
-                                    <div className="cp-platform-name">GitHub</div>
+                                    <div className="cp-platform-name" style={{ fontFamily: 'var(--font-serif)', fontSize: '0.9rem' }}>GitHub</div>
                                     <a href={`https://github.com/${GITHUB_USER}`}
                                         target="_blank" rel="noreferrer"
-                                        className="cp-handle">@{GITHUB_USER}</a>
+                                        className="cp-handle" style={{ fontFamily: 'var(--font-sans)' }}>@{GITHUB_USER}</a>
                                 </div>
-                                <a href={`https://github.com/${GITHUB_USER}`}
-                                    target="_blank" rel="noreferrer"
-                                    className="cp-ext-link" title="Open GitHub profile">↗</a>
                             </div>
 
                             {gh && (
-                                <div className="cp-stats-row">
+                                <div className="cp-stats-row" style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-sans)' }}>
                                     <Stat label="Repos" value={gh.public_repos} />
                                     <Stat label="Followers" value={gh.followers} />
                                     <Stat label="Following" value={gh.following} />
@@ -163,60 +160,56 @@ const CodingProfiles = () => {
                             )}
 
                             {/* Contribution heatmap — always shown, loaded as an img from external service */}
-                            <div className="cp-contrib-wrap">
-                                <div className="cp-contrib-label">Contribution Graph</div>
-                                <div className="cp-contrib-img-wrap">
+                            <div className="cp-contrib-wrap" style={{ marginTop: '2rem' }}>
+                                <div className="cp-contrib-label" style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>// Contribution Graph</div>
+                                <div className="cp-contrib-img-wrap" style={{ border: '2px solid var(--border-color)', padding: '0.5rem' }}>
                                     <img
-                                        src={`https://ghchart.rshah.org/2dba4e/${GITHUB_USER}`}
+                                        src={`https://ghchart.rshah.org/0B1F3B/${GITHUB_USER}`}
                                         alt="GitHub contribution heatmap"
                                         className="cp-contrib-chart"
                                         onError={e => { e.target.style.display = 'none'; }}
+                                        style={{ width: '100%', filter: 'grayscale(0%)' }}
                                     />
                                 </div>
                             </div>
 
                             {ghRepos.length > 0 && (
-                                <div className="cp-repo-list">
-                                    <div className="cp-sub-label">Recent Repositories</div>
+                                <div className="cp-repo-list" style={{ marginTop: 'auto', paddingTop: '2rem', fontFamily: 'var(--font-sans)' }}>
+                                    <div className="cp-sub-label" style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>// Recent Repositories</div>
                                     {ghRepos.slice(0, 5).map(repo => (
                                         <a key={repo.id}
                                             href={repo.html_url}
                                             target="_blank" rel="noreferrer"
-                                            className="cp-repo-row">
-                                            <span className="cp-repo-icon">📁</span>
-                                            <span className="cp-repo-name">{repo.name}</span>
-                                            <span className="cp-repo-lang">{repo.language || '—'}</span>
-                                            <span className="cp-repo-stars">⭐ {repo.stargazers_count}</span>
+                                            className="cp-repo-row" style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem', borderBottom: '1px dotted var(--border-color)', textDecoration: 'none', color: 'var(--text-primary)' }}>
+                                            <span className="cp-repo-name" style={{ fontWeight: 'bold' }}>{repo.name}</span>
+                                            <span className="cp-repo-lang" style={{ fontSize: '0.8rem' }}>{repo.language || '—'}</span>
                                         </a>
                                     ))}
                                 </div>
                             )}
-                        </div>
+                        </PixelCard>
 
                         {/* ══ CODEFORCES PANEL ══ */}
-                        <div className="cp-card cp-card-cf">
-                            <div className="cp-card-header">
-                                <div className="cp-platform-logo cf-logo">CF</div>
+                        <PixelCard isMajor={false} className="cp-card cp-card-cf">
+                            <div className="cp-card-header" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', borderBottom: '2px dotted var(--border-color)', paddingBottom: '0.5rem' }}>
+                                <div className="cp-platform-logo cf-logo" style={{ fontFamily: 'var(--font-serif)', fontSize: '1rem', color: 'var(--accent-color)' }}>CF</div>
                                 <div>
-                                    <div className="cp-platform-name">Codeforces</div>
+                                    <div className="cp-platform-name" style={{ fontFamily: 'var(--font-serif)', fontSize: '0.9rem' }}>Codeforces</div>
                                     <a href={`https://codeforces.com/profile/${CF_HANDLE}`}
                                         target="_blank" rel="noreferrer"
-                                        className="cp-handle">{CF_HANDLE}</a>
+                                        className="cp-handle" style={{ fontFamily: 'var(--font-sans)' }}>{CF_HANDLE}</a>
                                 </div>
-                                <a href={`https://codeforces.com/profile/${CF_HANDLE}`}
-                                    target="_blank" rel="noreferrer"
-                                    className="cp-ext-link" title="Open Codeforces profile">↗</a>
                             </div>
 
                             {/* If Live API works, show dynamic data; else show hardcoded fallback */}
                             {cf ? (
                                 <>
                                     <div className="cp-rank-badge"
-                                        style={{ borderColor: rankColor(cf.rank), color: rankColor(cf.rank) }}>
-                                        <span className="cp-rank-title">{cf.rank}</span>
-                                        <span className="cp-rank-rating">{cf.rating}</span>
+                                        style={{ borderColor: rankColor(cf.rank), color: rankColor(cf.rank), padding: '0.5rem', border: '2px solid', marginBottom: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+                                        <span className="cp-rank-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '0.8rem', textTransform: 'uppercase' }}>{cf.rank}</span>
+                                        <span className="cp-rank-rating" style={{ fontFamily: 'var(--font-sans)' }}>{cf.rating}</span>
                                     </div>
-                                    <div className="cp-stats-row">
+                                    <div className="cp-stats-row" style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-sans)' }}>
                                         <Stat label="Rating" value={cf.rating} accent={rankColor(cf.rank)} />
                                         <Stat label="Max Rating" value={cf.maxRating} accent={rankColor(cf.maxRank)} />
                                         <Stat label="Max Rank" value={cf.maxRank} />
@@ -228,11 +221,11 @@ const CodingProfiles = () => {
                                 /* Hardcoded fallback when CORS blocks the live fetch */
                                 <>
                                     <div className="cp-rank-badge"
-                                        style={{ borderColor: '#808080', color: '#808080' }}>
-                                        <span className="cp-rank-title">Newbie</span>
-                                        <span className="cp-rank-rating">1001</span>
+                                        style={{ borderColor: '#808080', color: '#808080', padding: '0.5rem', border: '2px solid', marginBottom: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+                                        <span className="cp-rank-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '0.8rem', textTransform: 'uppercase' }}>Newbie</span>
+                                        <span className="cp-rank-rating" style={{ fontFamily: 'var(--font-sans)' }}>1001</span>
                                     </div>
-                                    <div className="cp-stats-row">
+                                    <div className="cp-stats-row" style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-sans)' }}>
                                         <Stat label="Rating" value="1001" accent="#808080" />
                                         <Stat label="Max Rating" value="1001" accent="#808080" />
                                         <Stat label="Max Rank" value="Newbie" />
@@ -243,19 +236,18 @@ const CodingProfiles = () => {
                             )}
 
                             {uniqueProblems.length > 0 && (
-                                <div className="cp-sub-list">
-                                    <div className="cp-sub-label">Recent Submissions</div>
+                                <div className="cp-sub-list" style={{ marginTop: 'auto', paddingTop: '2rem', fontFamily: 'var(--font-sans)' }}>
+                                    <div className="cp-sub-label" style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>// Recent Submissions</div>
                                     {uniqueProblems.map((s, i) => {
                                         const { label, cls } = verdictBadge(s.verdict);
                                         return (
                                             <a key={i}
                                                 href={`https://codeforces.com/contest/${s.contestId}/problem/${s.problem.index}`}
                                                 target="_blank" rel="noreferrer"
-                                                className="cp-sub-row">
-                                                <span className={`cp-verdict ${cls}`}>{label}</span>
-                                                <span className="cp-sub-name">{s.problem.name}</span>
-                                                <span className="cp-sub-lang">{s.programmingLanguage?.split(' ')[0]}</span>
-                                                <span className="cp-sub-time">{timeAgo(s.creationTimeSeconds)}</span>
+                                                className="cp-sub-row" style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem', borderBottom: '1px dotted var(--border-color)', textDecoration: 'none', color: 'var(--text-primary)' }}>
+                                                <span className={`cp-verdict ${cls}`} style={{ fontWeight: 'bold' }}>[{label}]</span>
+                                                <span className="cp-sub-name" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '120px' }}>{s.problem.name}</span>
+                                                <span className="cp-sub-time" style={{ fontSize: '0.7rem' }}>{timeAgo(s.creationTimeSeconds)}</span>
                                             </a>
                                         );
                                     })}
@@ -264,8 +256,8 @@ const CodingProfiles = () => {
 
                             {cfErr && uniqueProblems.length === 0 && (
                                 /* fallback hardcoded recent submissions */
-                                <div className="cp-sub-list">
-                                    <div className="cp-sub-label">Recent Submissions</div>
+                                <div className="cp-sub-list" style={{ marginTop: 'auto', paddingTop: '2rem', fontFamily: 'var(--font-sans)' }}>
+                                    <div className="cp-sub-label" style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>// Recent Submissions</div>
                                     {[
                                         { name: 'Swap to Rearrange', verdict: 'WRONG_ANSWER', lang: 'C++', contest: 2192, idx: 'E', ago: 'today' },
                                         { name: 'Cost of Tree', verdict: 'WRONG_ANSWER', lang: 'Python', contest: 2192, idx: 'D', ago: 'today' },
@@ -279,21 +271,16 @@ const CodingProfiles = () => {
                                             <a key={i}
                                                 href={`https://codeforces.com/contest/${s.contest}/problem/${s.idx}`}
                                                 target="_blank" rel="noreferrer"
-                                                className="cp-sub-row">
-                                                <span className={`cp-verdict ${cls}`}>{label}</span>
-                                                <span className="cp-sub-name">{s.name}</span>
-                                                <span className="cp-sub-lang">{s.lang}</span>
-                                                <span className="cp-sub-time">{s.ago}</span>
+                                                className="cp-sub-row" style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem', borderBottom: '1px dotted var(--border-color)', textDecoration: 'none', color: 'var(--text-primary)' }}>
+                                                <span className={`cp-verdict ${cls}`} style={{ fontWeight: 'bold' }}>[{label}]</span>
+                                                <span className="cp-sub-name" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '120px' }}>{s.name}</span>
+                                                <span className="cp-sub-time" style={{ fontSize: '0.7rem' }}>{s.ago}</span>
                                             </a>
                                         );
                                     })}
                                 </div>
                             )}
-
-                            <a href={`https://codeforces.com/profile/${CF_HANDLE}`}
-                                target="_blank" rel="noreferrer"
-                                className="cp-view-all">View full profile →</a>
-                        </div>
+                        </PixelCard>
 
                     </div>
                 )}

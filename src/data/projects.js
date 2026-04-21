@@ -1,119 +1,95 @@
 export const majorProjects = {
     'smart-pricing': {
-        title: 'Smart Product Pricing (ML Challenge 2025)',
-        shortDescription: 'A multi-modal deep learning regression system that predicts product prices using text and images, built for the Amazon ML Challenge 2025.',
-        description: 'This competition-grade multimodal deep learning engineering project predicts product prices by learning semantic meaning from text (title, description, quantity) and visual cues from images, then fuses them into a unified representation. This approach mirrors how real-world pricing systems are built in large e-commerce platforms.',
-        techStack: ['Python', 'Deep Learning', 'Hugging Face', 'Transformers', 'MiniLM', 'EfficientNet-B0', 'PyTorch', 'Hackathons'],
-        problemStatement: 'In modern e-commerce, predicting product prices relies on multiple data modalities. Relying solely on one modality leads to inaccurate pricing. Real-world pricing systems require a multi-modal approach that learns both semantic textual meaning and visual product cues simultaneously.',
-        approach: 'Designed an end-to-end multimodal regression model combining a Text Encoder (nreimers/MiniLM-L6-H384-uncased) and an Image Encoder (EfficientNet-B0 pretrained on ImageNet). I projected both embeddings into 256D representations, concatenated them, and passed them through a fusion network (512 → 256 → 64 → 1) with GELU, BatchNorm, and Dropout. Prices were skewed, so I applied a log1p target transformation to reduce outlier dominance and stabilize gradients. I utilized a two-phase training strategy, optimizing first for smooth L1 (stable training) and then Differentiable SMAPE (metric alignment), paired with differential learning rates to prevent overwriting pretrained knowledge.',
+        title: 'Amazon ML Challenge 2025: Smart Product Pricing Solution',
+        shortDescription: 'An end-to-end multi-modal deep learning framework designed to predict product prices from textual descriptions and images.',
+        description: 'An end-to-end multi-modal deep learning framework designed to predict product prices from textual descriptions and images. This project achieves robust price prediction by fusing semantic text embeddings from a Transformer with visual features from a Convolutional Neural Network.',
+        techStack: ['Python', 'PyTorch', 'Transformers', 'EfficientNet-B0', 'MiniLM', 'Deep Learning'],
+        problemStatement: 'Predicting product prices from textual descriptions and images natively handling highly skewed price distributions.',
+        approach: 'The model (MiniLMEfficientNetModel) uses a dual-branch architecture. A Text Branch (MiniLM-L6-H384-uncased) encodes the product catalog content. An Image Branch (EfficientNet-B0 pretrained on ImageNet) extracts visual features from images. Both embeddings are projected to 256 dimensions, concatenated, and passed through a 3-layer MLP.',
         executionSteps: [
             {
-                title: 'Text Encoding',
-                description: 'Used a MiniLM sentence transformer to capture semantic meaning, product attributes, and contextual pricing signals, generating a 384-dimensional embedding.'
+                title: 'Multi-modal Fusion',
+                description: 'Leverages both text and image data for accurate price prediction through a robust fusion head.'
             },
             {
-                title: 'Image Encoding',
-                description: 'Employed an EfficientNet-B0 CNN to capture visual quality, brand cues, packaging richness, and category signals, generating a 1280-dimensional image embedding.'
+                title: 'Log-Price Target',
+                description: 'Predicts the log1p of the price to handle the highly skewed price distribution natively.'
             },
             {
-                title: 'Multi-Modal Fusion',
-                description: 'Projected both embeddings to 256D, concatenated them, and reduced dimensionality through dense network layers, implementing mixed precision training and cosine warm restarts for memory and speed optimization.'
+                title: 'Mixed Precision & Learning Rates',
+                description: 'Uses FP16 AutoCast for fast training and fine-tuned encoder pathways with separate learning rates for the text model, image model, and fusion head.'
             },
             {
-                title: 'Strategic Metric Optimization',
-                description: 'Implemented log-target transformation on prices to stabilize gradients. The training utilized a two-phase optimization (Smooth L1 followed by SMAPE loss) with differential learning rates for individual encoder networks and fusion head.'
+                title: 'Dynamic Image Processing',
+                description: 'Missing images are smoothly downloaded and processed during dataset instantiation dynamically.'
             }
         ],
-        challenges: 'Skewed price distributions leading to outlier dominance, unstable gradients, and metric misalignment when optimizing directly for competition metrics on a multimodal network.',
-        solutions: 'Applied log1p transformations, differential learning rates (e.g., Text Encoder 5e-6, Fusion Head 1e-5), and a two-phase training strategy shifting from Smooth L1 to differentiable SMAPE to perfectly align with leaderboard constraints.',
-        results: 'Achieved 20.68% SMAPE on the validation set and 18.59% SMAPE on final training, exhibiting excellent generalization without overfitting, resulting in a competitive score for a multi-modal regression task.',
+        challenges: 'Skewed price distributions leading to outlier dominance, metric misalignment, and efficiently dealing with missing product images.',
+        solutions: 'Applied log1p transformations, differential learning rates, and implemented on-the-fly image downloading during dataset instantiation dynamically.',
+        results: 'Validation SMAPE: 20.68%, Training SMAPE: 18.59%. Loss Function: Smooth L1 Loss (with Differentiable SMAPE optimization).',
         githubLink: 'https://github.com/lord230/Amazon-ML',
         demoLink: null
     },
     'tumor': {
-        title: 'Brain Tumor Detection with GradCAM',
-        shortDescription: 'A medical AI application that classifies brain MRI scans into four categories and provides visual heatmap explanations using GradCAM — bridging the gap between deep learning accuracy and clinical trustworthiness.',
-        description: 'This project addresses one of the most critical challenges in medical AI: making deep learning models interpretable enough for real clinical use. Using a fine-tuned DenseNet121 architecture trained on over 3,000 labeled MRI scans, the system classifies tumors into four categories — Glioma, Meningioma, Pituitary, and No Tumor — while simultaneously generating GradCAM heatmaps that overlay precisely where the model is "looking" on each scan. The result is packaged in a desktop GUI built with Tkinter, allowing medical staff to upload scans, receive predictions with confidence scores, and see highlighted regions of interest — all without any ML expertise required.',
-        techStack: ['Python', 'PyTorch', 'DenseNet121', 'GradCAM', 'Tkinter', 'Medical Imaging', 'Transfer Learning'],
-        problemStatement: 'Brain tumor diagnosis from MRI scans requires trained radiologists and is time-intensive, error-prone, and expensive at scale. While deep learning models can match or exceed radiologist accuracy, they operate as "black boxes" — clinicians cannot see why a prediction was made, making adoption in hospitals nearly impossible. There was a need for a system that is both highly accurate AND explainable, so medical professionals can verify, trust, and act on the AI\'s output.',
-        approach: 'Rather than training a model from scratch (which would require massive compute and data), I leveraged Transfer Learning with DenseNet121 — a convolutional network pre-trained on ImageNet. Only the final classification layers were retrained on the MRI dataset. To address the interpretability gap, GradCAM (Gradient-weighted Class Activation Mapping) was integrated post-training. GradCAM computes gradients of the predicted class score with respect to the last convolutional layer, producing a coarse localization map of the discriminative regions. These heatmaps are then alpha-blended onto the original MRI, giving a medically meaningful visualization.',
+        title: 'Tumor Grad-CAM Classification',
+        shortDescription: 'An advanced Hybrid Neural Network combining CNNs and Transformers to classify brain MRI scans with explicit Grad-CAM mappings.',
+        description: 'This repository hosts an advanced Hybrid Neural Network designed for classifying brain classification variants utilizing Magnetic Resonance Imaging (MRI). By combining the spatial extraction reasoning inherent to Convolutional Neural Networks with the global context logic of Transformers, the model operates securely to output predictions confirmed utilizing explicit Grad-CAM mappings per case.',
+        techStack: ['PyTorch', 'EfficientNet-B0', 'Swin Transformer', 'Grad-CAM', 'Tkinter', 'Medical Imaging'],
+        problemStatement: 'Testing the accuracy variables demands broad and precise initial definitions minimizing data pooling contamination across more than 10,000 distinct samples, accurately classifying brain tumor variants.',
+        approach: 'The structural foundation deploys multiple branches: A CNN Sub-Network (EfficientNet-B0) parsing hierarchical layers and a Transformer Sub-Network (Swin-Tiny) generating structural continuity. They are fused using a Channel Attention filter to align significance per component. Class selection directly references learnable vectors using a Prototype Memory Head.',
         executionSteps: [
             {
-                title: 'Dataset Collection & Exploration',
-                description: 'Sourced the Brain Tumor MRI Dataset from Kaggle — 3,264 labeled MRI images across 4 classes: Glioma (926), Meningioma (937), Pituitary (901), and No Tumor (500). Performed exploratory analysis to assess class distribution and image quality.'
+                title: 'CNN Sub-Network',
+                description: 'Utilizes PyTorch\'s EfficientNet-B0 design template parsing hierarchical layers identifying defining edges, shapes, and features from the local scan context arrays.'
             },
             {
-                title: 'Data Preprocessing & Augmentation',
-                description: 'Resized all images to 224×224 pixels (DenseNet input size). Applied augmentation: random horizontal flips, rotations (±15°), brightness/contrast jitter, and normalization using ImageNet mean/std. This reduced overfitting significantly on the minority class.'
+                title: 'Transformer Sub-Network',
+                description: 'Incorporates Swin-Tiny mechanisms generating structural continuity across separated components of any given volume through critical self-attention systems.'
             },
             {
-                title: 'Model Architecture & Transfer Learning',
-                description: 'Loaded DenseNet121 with pre-trained ImageNet weights. Froze all convolutional layers to preserve low-level feature detectors. Replaced the final fully-connected layer with a custom 4-class classifier head (Linear → ReLU → Dropout(0.5) → Linear → Softmax).'
+                title: 'Channel Attention Fusion Element',
+                description: 'A structured Channel Attention filter mechanism aligns significance per component to effectively integrate vectors retaining significant variables and shedding artifact features.'
             },
             {
-                title: 'Training & Fine-Tuning',
-                description: 'Trained for 25 epochs with Adam optimizer (lr=1e-4, weight decay=1e-5) and CrossEntropyLoss. Used a ReduceLROnPlateau scheduler. In the final 5 epochs, unfroze the last two Dense blocks for fine-tuning at a lower lr (1e-5). Best model checkpoint saved based on validation accuracy.'
-            },
-            {
-                title: 'GradCAM Explainability Integration',
-                description: 'Implemented GradCAM by registering forward and backward hooks on the last convolutional layer. For each prediction, computed gradients of the predicted class score w.r.t. the feature maps, averaged them (global average pooling), and used them to weight the activation maps. The resulting heatmap is resized and overlaid on the MRI using a jet colormap for intuitive visualization.'
-            },
-            {
-                title: 'Desktop GUI Development',
-                description: 'Built a Tkinter-based interface with an image upload button, a preview panel, a prediction readout showing class label + confidence percentage, and a side-by-side view of the original scan vs GradCAM overlay. Designed to require zero ML knowledge to operate.'
-            },
-            {
-                title: 'Evaluation & Validation',
-                description: 'Evaluated on a held-out test set (20% split). Computed accuracy, precision, recall, and F1-score per class. Generated confusion matrix to identify misclassification patterns. GradCAM outputs were visually reviewed by a domain-familiar reviewer to confirm heatmap relevance.'
+                title: 'Prototype Memory Head & GUI',
+                description: 'Class selection directly references learnable vectors against a configurable temperature gradient via Cosine similarity. An interactive GUI platform provides direct analytical control allowing transparent evaluation.'
             }
         ],
-        challenges: 'The primary challenge was class imbalance — the "No Tumor" class had roughly half the samples of the tumor classes, causing early models to be biased. Real-time GradCAM generation introduced latency (~1.5s per scan on CPU), which was noticeable in the GUI. Additionally, Meningioma and Glioma share visual similarities in MRI texture, making them the hardest pair to distinguish.',
-        solutions: 'Class imbalance was addressed with weighted random sampling during training and class-weighted CrossEntropyLoss, improving minority class recall from 71% to 94%. GUI latency was reduced by caching the GradCAM computation and running it in a separate thread so the UI stayed responsive. For the Meningioma/Glioma confusion, fine-tuning the last two Dense blocks significantly improved inter-class discrimination.',
-        results: 'Achieved 98% overall accuracy on the test set. Per-class F1-scores: Glioma 0.98, Meningioma 0.96, Pituitary 0.99, No Tumor 0.99. GradCAM heatmaps accurately highlighted tumor regions in 95%+ of correctly classified scans. The GUI enables a full diagnosis workflow — upload, predict, explain — in under 3 seconds.',
-        githubLink: 'https://github.com/lord230/Tumor-GradCam.git',
+        challenges: 'Limiting overfitting, effectively integrating CNN spatial features with Transformer global context, and securely confirming predictions for clinical trustworthiness.',
+        solutions: 'Deployed multiple branches and a structured Channel Attention filter mechanism. Introduced an interactive GUI adjusting blend configurations to evaluate transparent Grad-CAM activation outputs directly.',
+        results: 'Raw Accuracy Base: 99.03%, Precision Index (Macro): 98.84%, Recall Index (Macro): 98.95%, Integrated ROC AUC Index: 0.9986. Specific accuracies: Glioma (99.58%), Meningioma (98.04%), No Tumor (99.75%), Pituitary (98.43%).',
+        githubLink: 'https://github.com/lord230/Tumor-GradCam',
         demoLink: null
     },
     'sentiment': {
-        title: 'Sentiment Analysis Engine',
-        shortDescription: 'A classical NLP pipeline that classifies text as positive, negative, or neutral — trained on a 50,000-sample dataset with TF-IDF feature extraction and multiple ML classifiers, deployed as a real-time web app.',
-        description: 'This project implements a complete, end-to-end sentiment analysis pipeline without relying on pre-trained language models like BERT. Starting from raw, noisy text (product reviews, tweets, comments), the system applies a multi-stage preprocessing pipeline, extracts TF-IDF features, and benchmarks five different ML classifiers. The best-performing model (Logistic Regression) is serialized and served through a lightweight Flask API, with a React front-end for real-time predictions. The project demonstrates that classical ML — when paired with rigorous preprocessing and proper feature engineering — can achieve strong results, often faster and more interpretably than transformer-based approaches.',
-        techStack: ['Python', 'NLTK', 'Scikit-learn', 'Pandas', 'Flask', 'TF-IDF', 'Logistic Regression', 'SVM'],
-        problemStatement: 'Organizations generate and consume enormous volumes of user-generated text — reviews, survey responses, social media mentions — but manually reading and categorizing sentiment is impossible at scale. Existing off-the-shelf solutions are either too expensive, too slow, or too opaque. There was a need for a fast, understandable, and deployable sentiment classifier that could be customized to specific domains without retraining a large language model.',
-        approach: 'Chose a classical ML approach over deep learning deliberately — it offers faster inference, lower memory footprint, interpretable feature weights, and easier debugging. The pipeline: raw text → cleaning → tokenization → stop-word removal → lemmatization → TF-IDF vectorization → classification. Five models were benchmarked (Naive Bayes, Logistic Regression, Linear SVM, SGD Classifier, Random Forest). Logistic Regression with TF-IDF bigrams won on both accuracy and F1-score. The final model is exposed via a Flask REST API and consumed by a simple React UI.',
+        title: 'Sentiment Fusion',
+        shortDescription: 'An advanced sentiment analysis and emotion detection system powered by state-of-the-art transformer models and Vector Databases.',
+        description: 'Sentiment Fusion is an advanced sentiment analysis and emotion detection system powered by state-of-the-art transformer models and Vector Databases. It robustly captures nuances in text, such as sarcasm and mixed emotions, to deliver highly accurate and nuanced sentiment predictions.',
+        techStack: ['Python', 'Transformers', 'FAISS', 'Vector Databases', 'PyTorch'],
+        problemStatement: 'Providing rich, nuanced emotional context beyond simple Positive/Negative/Neutral classifications and handling complex textual nuances like sarcasm.',
+        approach: 'The core models include SarcasmAwareSentimentTransformer and Robust_SentimentModel, built on top of xlm-roberta-base. The architecture incorporates a distinct sarcasm-detection head. To provide rich context, the system employs a FAISS Vector Database during inference.',
         executionSteps: [
             {
-                title: 'Dataset Acquisition',
-                description: 'Used the IMDB Movie Reviews dataset (50,000 reviews, balanced 50/50 positive/negative) as the primary training corpus. Supplemented with a sample of Twitter Sentiment140 data for cross-domain evaluation. Total labeled samples: ~55,000.'
+                title: 'Sarcasm-Aware Modeling',
+                description: 'The probability of sarcasm modulates the primary [CLS] token via a dedicated gating mechanism (gate_proj), explicitly accounting for sarcastic tone when deriving the final sentiment logits.'
             },
             {
-                title: 'Text Cleaning & Normalization',
-                description: 'Removed HTML tags, URLs, email addresses, punctuation, and special characters using regex. Converted all text to lowercase. Handled contractions (e.g., "don\'t" → "do not") and expanded common abbreviations. Filtered out reviews with fewer than 5 words.'
+                title: 'Vector Context Extraction',
+                description: 'Extracts a rich 1540-dimensional context vector consisting of the [CLS] token, mean-pooled sequence embeddings, and scaled sentiment/sarcasm probabilities.'
             },
             {
-                title: 'Tokenization & Stop-Word Removal',
-                description: 'Tokenized text using NLTK\'s word_tokenize. Removed English stop words from NLTK\'s corpus — but retained negation words (not, never, no) as they reverse sentiment polarity. Applied NLTK\'s WordNetLemmatizer to reduce words to their base forms (running → run, better → good).'
+                title: 'FAISS Vector Indexing',
+                description: 'The FAISS database is partitioned into three polarity-specific sub-indexes (positive, negative, neutral) for efficient retrieval.'
             },
             {
-                title: 'Feature Engineering with TF-IDF',
-                description: 'Fit a TF-IDF vectorizer on the training set with unigrams + bigrams (ngram_range=(1,2)), capping vocabulary at 50,000 features and using sublinear TF scaling. Bigrams proved crucial — "not good" and "not bad" carry opposite sentiments, invisible to unigram-only models.'
-            },
-            {
-                title: 'Model Training & Benchmarking',
-                description: 'Trained and 5-fold cross-validated: Multinomial Naive Bayes, Logistic Regression (C=1.0), Linear SVM (C=0.5), SGD Classifier, and Random Forest (100 trees). Logistic Regression achieved the best CV accuracy (88.4%) and highest F1 on the test set. Random Forest was the slowest with marginal accuracy gain.'
-            },
-            {
-                title: 'Hyperparameter Tuning',
-                description: 'Ran GridSearchCV over Logistic Regression\'s C (0.01, 0.1, 1, 10) and solver (liblinear, lbfgs). Also tuned TF-IDF\'s max_df (0.8, 0.9, 1.0) and min_df (1, 2, 5). Best config: C=1, solver=liblinear, max_df=0.9, min_df=2 — pushed test accuracy from 85% to 88.7%.'
-            },
-            {
-                title: 'API Deployment & Frontend',
-                description: 'Serialized the trained pipeline (vectorizer + model) using joblib. Built a Flask REST API with a /predict endpoint accepting JSON text input. Deployed with Gunicorn. Front-end is a minimal React app with a textarea, real-time confidence bar, and positive/negative/neutral label with color coding.'
+                title: 'Nuanced Emotion Retrieval',
+                description: 'Routes the query vector to the matching sub-index to perform a nearest-neighbor search, retrieving the closest emotions and intensities (e.g., "Mild Joy", "Moderate Sarcasm").'
             }
         ],
-        challenges: 'Sarcasm and irony are fundamentally difficult for bag-of-words models — "Great, another Monday" reads as positive without context. The dataset was domain-specific (movie reviews), causing accuracy to drop to 76% when tested on tweets, which use slang, abbreviations, and emoji. Class imbalance wasn\'t an issue in IMDB, but was a major concern in the Twitter subset (60% negative).',
-        solutions: 'For sarcasm, added a feature layer that flags high positive-word density paired with low overall review score as a potential sarcasm signal — a lightweight heuristic that improved cross-domain F1 by 4%. Domain shift was mitigated by mixing 15% Twitter data into the training set and using subword-level bigrams for slang robustness. Twitter class imbalance was handled with SMOTE oversampling on the TF-IDF feature matrix.',
-        results: 'Achieved 88% accuracy on IMDB test set. Cross-domain accuracy on Twitter: 79% (up from 76% baseline). F1-score: 0.89 (positive), 0.88 (negative). Inference latency: ~2ms per prediction via the Flask API, suitable for real-time use. Model size: 18MB (vectorizer + classifier combined), deployable on a free-tier server.',
-        githubLink: 'https://github.com/lord230/Sentiment.git',
+        challenges: 'Capturing nuances like sarcasm and retrieving precise, nuanced emotions natively instead of basic broad polarity assignments.',
+        solutions: 'Incorporated a distinct sarcasm-detection head and a gating mechanism. Used a FAISS Vector Database to perform nearest-neighbor searches mapping primary sentiment predictions to rich emotional profiles.',
+        results: 'Validation Loss reached ~0.2284 by Epoch 15 showing robust convergence. Peak Performance (Epoch 14-17): Sentiment Accuracy ~94.40%, Sarcasm Accuracy ~75.95%, Overall Score ~0.8866.',
+        githubLink: 'https://github.com/lord230/Sentiment_',
         demoLink: null
     }
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = ({ theme, toggleTheme }) => {
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
@@ -31,18 +31,18 @@ const Navbar = ({ theme, toggleTheme }) => {
     const NavHashLink = ({ to, children }) => {
         // If we are on home page, use anchor scrolling
         if (location.pathname === '/') {
-            return <a href={to} className="nav-link" onClick={(e) => scrollToSection(e, to)}>{children}</a>;
+            return <a href={to} className="nav-link" onClick={(e) => scrollToSection(e, to)} style={{ fontFamily: 'var(--font-sans)', fontWeight: 'bold' }}>[{children}]</a>;
         } else {
             // If on other pages, link to home with hash
-            return <Link to={`/${to}`} className="nav-link" onClick={closeMenu}>{children}</Link>;
+            return <Link to={`/${to}`} className="nav-link" onClick={closeMenu} style={{ fontFamily: 'var(--font-sans)', fontWeight: 'bold' }}>[{children}]</Link>;
         }
     };
 
     return (
-        <nav className="navbar">
+        <nav className="navbar" style={{ borderBottom: '3px solid var(--border-color)', backgroundColor: 'var(--blur-bg)'}}>
             <div className="nav-container">
                 <Link to="/" className="nav-logo" onClick={closeMenu}>
-                    <span className="logo-text">AV</span>
+                    <span className="logo-text" style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', textShadow: '2px 2px 0px var(--accent-color)' }}>AV</span>
                 </Link>
                 <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                     <li className="nav-item">
@@ -58,7 +58,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                         <NavHashLink to="#research">Research</NavHashLink>
                     </li>
                     <li className="nav-item">
-                        <Link to="/blogs" className="nav-link" onClick={closeMenu}>Blog</Link>
+                        <Link to="/blogs" className="nav-link" onClick={closeMenu} style={{ fontFamily: 'var(--font-sans)', fontWeight: 'bold' }}>[Blog]</Link>
                     </li>
                     <li className="nav-item">
                         <NavHashLink to="#projects">Projects</NavHashLink>
@@ -67,19 +67,10 @@ const Navbar = ({ theme, toggleTheme }) => {
                         <NavHashLink to="#contact">Contact</NavHashLink>
                     </li>
                 </ul>
-                <div className="nav-controls">
-                    <button
-                        className={`theme-toggle ${theme === 'light' ? 'theme-switching' : ''}`}
-                        id="themeToggle"
-                        onClick={toggleTheme}
-                    >
-                        <i className={`fas ${theme === 'light' ? 'fa-sun' : 'fa-moon'}`}></i>
-                    </button>
-                </div>
                 <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
+                    <span className="bar" style={{ backgroundColor: 'var(--text-primary)' }}></span>
+                    <span className="bar" style={{ backgroundColor: 'var(--text-primary)' }}></span>
+                    <span className="bar" style={{ backgroundColor: 'var(--text-primary)' }}></span>
                 </div>
             </div>
         </nav>

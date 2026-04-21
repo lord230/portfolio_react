@@ -1,40 +1,24 @@
 /* Typography & Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Press+Start+2P&display=swap');
 
 :root {
-    /* Dark Mode (Default) Colors */
-    --bg-primary: #0B132B;
-    --bg-secondary: #1C2541;
-    --bg-card: #151D36;
-    --text-primary: #FFFFFF;
-    --text-secondary: #A3ABC0;
-    --text-muted: #727D9A;
-    --border-color: #2A365B;
-    --accent-color: #FF8A8A;
-    --secondary-accent: #5FFBF1;
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    --glow-color: rgba(255, 138, 138, 0.4);
-    --blur-bg: rgba(11, 19, 43, 0.85);
+    /* 8-Bit Pixel ML Theme */
+    --bg-primary: #F8F4EC;     /* Ivory */
+    --bg-secondary: #E5DFC9;   /* darker Ivory for cards/panels */
+    --bg-card: #FDFBFC;        /* light ivory */
+    --text-primary: #0B1F3B;   /* Navy */
+    --text-secondary: #1C385C; /* Faded Navy */
+    --text-muted: #4B6282;     /* muted navy */
+    --border-color: #0B1F3B;   /* harsh navy borders */
+    --accent-color: #FFD700;   /* Solar Gold */
+    --secondary-accent: #2EC4B6; /* Ocean Teal */
+    --shadow-color: rgba(11, 31, 59, 1); /* Hard Navy shadow */
+    --glow-color: rgba(255, 215, 0, 0.6); /* Gold glow */
+    --blur-bg: rgba(248, 244, 236, 0.85);
 
     /* Typography */
-    --font-sans: 'Inter', sans-serif;
-    --font-serif: 'Playfair Display', serif;
-}
-
-[data-theme="light"] {
-    /* Light Mode Colors */
-    --bg-primary: #FAF9F6;
-    --bg-secondary: #FDECE2;
-    --bg-card: #FFFFFF;
-    --text-primary: #1C1E21;
-    --text-secondary: #5A606A;
-    --text-muted: #848A96;
-    --border-color: #E8D7D0;
-    --accent-color: #FF6B6B;
-    --secondary-accent: #4ECDC4;
-    --shadow-color: rgba(28, 30, 33, 0.08);
-    --glow-color: rgba(255, 107, 107, 0.4);
-    --blur-bg: rgba(250, 249, 246, 0.85);
+    --font-sans: 'IBM Plex Mono', monospace;
+    --font-serif: 'Press Start 2P', cursive;
 }
 
 /* Reset and Base Styles */
@@ -42,6 +26,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-radius: 0 !important; /* Force blocky pixel aesthetic globally */
 }
 
 body {
@@ -52,6 +37,12 @@ body {
     overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.4s ease;
     word-wrap: break-word;
+    /* Neural Grid Background */
+    background-image: 
+        linear-gradient(rgba(11, 31, 59, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 31, 59, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center;
 }
 
 h1,

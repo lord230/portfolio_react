@@ -23,8 +23,8 @@ const getTechColor = (tech) => techColors[tech] || '#6c757d';
 
 /* ── stat bar for results ── */
 const AccuracyStat = ({ text }) => {
-    const match = text.match(/(\d+)%/);
-    const pct = match ? parseInt(match[1]) : null;
+    const match = text.match(/([0-9.]+)%/);
+    const pct = match ? parseFloat(match[1]) : null;
     const [width, setWidth] = useState(0);
 
     useEffect(() => {

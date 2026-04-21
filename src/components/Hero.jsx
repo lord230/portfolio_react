@@ -1,45 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import NeuralNetwork from './NeuralNetwork';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-
-const MagneticButton = ({ children, className, href, download }) => {
-    const ref = useRef(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
-
-    const handleMouseMove = (e) => {
-        const { clientX, clientY } = e;
-        const { height, width, left, top } = ref.current.getBoundingClientRect();
-        const middleX = clientX - (left + width / 2);
-        const middleY = clientY - (top + height / 2);
-        x.set(middleX * 0.2);
-        y.set(middleY * 0.2);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    return (
-        <motion.a
-            href={href}
-            download={download}
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ x: mouseXSpring, y: mouseYSpring, display: 'inline-block' }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={className}
-        >
-            {children}
-        </motion.a>
-    );
-};
+import { motion } from 'framer-motion';
+import PixelButton from './PixelButton';
 
 const Hero = () => {
     // container variants for staggering
@@ -73,25 +35,29 @@ const Hero = () => {
                     animate="visible"
                 >
                     <motion.div className="floating-text" variants={itemVariants}>
-                        <h1 className="hero-title">
+                        <h1 className="hero-title" style={{ color: 'var(--text-primary)', textShadow: '4px 4px 0px var(--accent-color)'}}>
                             AMIT VERMA
                         </h1>
-                        <p className="hero-subtitle">ML Engineer & AI Enthusiast</p>
+                        <p className="hero-subtitle" style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)'}}>
+                            {'>'} ML Engineer & AI Enthusiast_
+                        </p>
                     </motion.div>
 
                     <motion.div className="hero-description" variants={itemVariants}>
-                        <p>Building, Running & Fine-tuning Machine Learning Models</p>
+                        <p style={{ fontFamily: 'var(--font-sans)', backgroundColor: 'var(--bg-secondary)', padding: '1rem', border: '2px solid var(--border-color)', display: 'inline-block' }}>
+                            Building, Running & Fine-tuning Machine Learning Models
+                        </p>
                     </motion.div>
 
-                    <motion.div className="hero-cgpa-info" variants={itemVariants}>
-                        <span className="cgpa">CGPA: 8.1/10.0</span>
-                        <span className="graduation">Expected: Apr 2026</span>
+                    <motion.div className="hero-cgpa-info" variants={itemVariants} style={{ margin: '1rem 0', fontFamily: 'var(--font-sans)' }}>
+                        <span className="cgpa">[{'CGPA: 8.1/10.0'}] </span>
+                        <span className="graduation">[{'Expected: Apr 2026'}]</span>
                     </motion.div>
 
-                    <motion.div className="hero-buttons" variants={itemVariants}>
-                        <MagneticButton href="#projects" className="btn btn-primary">View Projects</MagneticButton>
-                        <MagneticButton href="#contact" className="btn btn-secondary">Get In Touch</MagneticButton>
-                        <MagneticButton href="Resume_AV.pdf" className="btn btn-secondary" download>Download CV</MagneticButton>
+                    <motion.div className="hero-buttons" variants={itemVariants} style={{ display: 'flex', gap: '1rem' }}>
+                        <a href="#projects" style={{ textDecoration: 'none' }}><PixelButton isPrimary={true}>View Projects</PixelButton></a>
+                        <a href="#contact" style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Get In Touch</PixelButton></a>
+                        <a href="Resume_AV.pdf" download style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Download CV</PixelButton></a>
                     </motion.div>
                 </motion.div>
 
@@ -102,7 +68,7 @@ const Hero = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.5, type: "spring" }}
                 >
-                    <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ position: 'relative', zIndex: 1, border: '4px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', padding: '1rem', boxShadow: '8px 8px 0px var(--accent-color)' }}>
                         <NeuralNetwork />
                     </div>
                 </motion.div>
