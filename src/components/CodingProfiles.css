@@ -405,3 +405,18 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.cp-card-lc {
+    border-top: 3px solid #FFA116;
+}
+
+.lc-logo {
+    font-weight: 900;
+    font-size: 1rem;
+    color: #FFA116;
+    letter-spacing: -1px;
+}
+
+.cp-card-lc .cp-sub-row:hover {
+    background: rgba(255, 161, 22, 0.08);
+}

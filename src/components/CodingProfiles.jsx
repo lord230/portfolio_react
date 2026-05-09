@@ -4,7 +4,7 @@ import './CodingProfiles.css';
 
 const GITHUB_USER = 'lord230';
 const CF_HANDLE = 'LORD009';
-
+const LEETCODE_USER = 'LORD91';
 /* ── Codeforces rank colours ── */
 const CF_RANK_COLORS = {
     newbie: '#808080',
@@ -70,9 +70,11 @@ const CodingProfiles = () => {
     const [ghErr, setGhErr] = useState(false);
     const [cfErr, setCfErr] = useState(false);
     const [loading, setLoading] = useState(true);
-
+    const [lc, setLc] = useState(null);
+    const [lcSubs, setLcSubs] = useState([]);
+    const [lcErr, setLcErr] = useState(false);
     useEffect(() => {
-        let pending = 2; // count of pending async groups
+        let pending = 3; // count of pending async groups
         const done = () => { pending -= 1; if (pending === 0) setLoading(false); };
 
         /* ── GitHub (two separate fetches so one failure doesn't kill the other) ── */
@@ -108,6 +110,47 @@ const CodingProfiles = () => {
                     .catch(() => { })
                     .finally(done);
             });
+        /* ── LeetCode ── */
+        fetch(`https://alfa-leetcode-api.onrender.com/${LEETCODE_USER}/profile`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data && !data.errors && data.totalSolved !== undefined) {
+                    const allAc = data.matchedUserStats?.acSubmissionNum?.find(x => x.difficulty === "All")?.submissions || 0;
+                    const allSub = data.matchedUserStats?.totalSubmissionNum?.find(x => x.difficulty === "All")?.submissions || 0;
+                    const accRate = allSub > 0 ? ((allAc / allSub) * 100).toFixed(1) : "--";
+
+                    setLc({
+                        totalSolved: data.totalSolved || 0,
+                        easySolved: data.easySolved || 0,
+                        mediumSolved: data.mediumSolved || 0,
+                        hardSolved: data.hardSolved || 0,
+                        acceptanceRate: accRate
+                    });
+                    
+                    if (data.recentSubmissions) {
+                        const acSubs = data.recentSubmissions.filter(s => s.statusDisplay === "Accepted");
+                        const uniqueAcSubs = [];
+                        const seenTitles = new Set();
+                        for (const s of acSubs) {
+                            if (!seenTitles.has(s.title)) {
+                                seenTitles.add(s.title);
+                                uniqueAcSubs.push(s);
+                            }
+                            if (uniqueAcSubs.length >= 5) break;
+                        }
+                        setLcSubs(uniqueAcSubs);
+                    }
+
+                    setLcErr(false);
+                } else {
+                    setLcErr(true);
+                }
+            })
+            .catch((err) => {
+                console.error("LeetCode Fetch Error:", err);
+                setLcErr(true);
+            })
+            .finally(done);
     }, []);
 
     /* deduplicate CF problems */
@@ -279,6 +322,176 @@ const CodingProfiles = () => {
                                         );
                                     })}
                                 </div>
+                            )}
+                        </PixelCard>
+                        {/* ══ LEETCODE PANEL ══ */}
+                        <PixelCard isMajor={false} className="cp-card cp-card-lc">
+                            <div className="cp-card-header"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '1rem',
+                                    marginBottom: '1rem',
+                                    borderBottom: '2px dotted var(--border-color)',
+                                    paddingBottom: '0.5rem'
+                                }}>
+                                <div className="cp-platform-logo lc-logo"
+                                    style={{
+                                        fontWeight: '900',
+                                        color: '#FFA116',
+                                        fontSize: '1.2rem'
+                                    }}>
+                                    LC
+                                </div>
+
+                                <div>
+                                    <div className="cp-platform-name"
+                                        style={{
+                                            fontFamily: 'var(--font-serif)',
+                                            fontSize: '0.9rem'
+                                        }}>
+                                        LeetCode
+                                    </div>
+
+                                    <a
+                                        href={`https://leetcode.com/u/${LEETCODE_USER}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="cp-handle"
+                                        style={{ fontFamily: 'var(--font-sans)' }}
+                                    >
+                                        @{LEETCODE_USER}
+                                    </a>
+                                </div>
+                            </div>
+
+                            {lc ? (
+                                <>
+                                    <div className="cp-stats-row"
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            fontFamily: 'var(--font-sans)'
+                                        }}>
+                                        <Stat label="Solved" value={lc.totalSolved} />
+                                        <Stat label="Easy" value={lc.easySolved} accent="#22c55e" />
+                                        <Stat label="Medium" value={lc.mediumSolved} accent="#f59e0b" />
+                                        <Stat label="Hard" value={lc.hardSolved} accent="#ef4444" />
+                                    </div>
+
+                                    <div
+                                        style={{
+                                            marginTop: '1rem',
+                                            border: '2px solid var(--border-color)',
+                                            padding: '0.8rem',
+                                            borderRadius: '12px',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                fontSize: '0.8rem',
+                                                color: 'var(--text-secondary)'
+                                            }}
+                                        >
+                                            Acceptance Rate
+                                        </div>
+
+                                        <div
+                                            style={{
+                                                fontSize: '1.5rem',
+                                                fontWeight: 'bold',
+                                                color: '#FFA116'
+                                            }}
+                                        >
+                                            {lc.acceptanceRate || '--'}%
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="cp-stats-row">
+                                    <Stat label="Solved" value="250+" />
+                                    <Stat label="Easy" value="120" />
+                                    <Stat label="Medium" value="100" />
+                                    <Stat label="Hard" value="30" />
+                                </div>
+                            )}
+
+                            {lcSubs.length > 0 && (
+                                <div
+                                    className="cp-sub-list"
+                                    style={{
+                                        marginTop: '2rem',
+                                        fontFamily: 'var(--font-sans)'
+                                    }}
+                                >
+                                    <div
+                                        className="cp-sub-label"
+                                        style={{
+                                            fontSize: '0.8rem',
+                                            marginBottom: '0.5rem'
+                                        }}
+                                    >
+                // Recent Solves
+                                    </div>
+
+                                    {lcSubs.map((s, i) => (
+                                        <a
+                                            key={i}
+                                            href={`https://leetcode.com/problems/${s.titleSlug}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="cp-sub-row"
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                padding: '0.5rem',
+                                                borderBottom:
+                                                    '1px dotted var(--border-color)',
+                                                textDecoration: 'none',
+                                                color: 'var(--text-primary)'
+                                            }}
+                                        >
+                                            <span
+                                                style={{
+                                                    color: '#22c55e',
+                                                    fontWeight: 'bold'
+                                                }}
+                                            >
+                                                [AC]
+                                            </span>
+
+                                            <span
+                                                className="cp-sub-name"
+                                                style={{
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap',
+                                                    maxWidth: '160px'
+                                                }}
+                                            >
+                                                {s.title}
+                                            </span>
+
+                                            <span
+                                                className="cp-sub-time"
+                                                style={{
+                                                    fontSize: '0.7rem'
+                                                }}
+                                            >
+                                                {s.timestamp
+                                                    ? timeAgo(Number(s.timestamp))
+                                                    : 'recent'}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+
+                            {lcErr && (
+                                <p className="cp-api-err">
+                                    Could not load LeetCode stats right now.
+                                </p>
                             )}
                         </PixelCard>
 
