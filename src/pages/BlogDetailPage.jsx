@@ -4,10 +4,61 @@ import { supabase } from '../lib/supabaseClient';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import katex from 'katex';
 import 'katex/dist/katex.min.css';
+
+/* ── helper: recursively extract plain text from React children ── */
+const extractText = (children) => {
+    if (!children) return '';
+    if (typeof children === 'string') return children;
+    if (typeof children === 'number') return String(children);
+    if (Array.isArray(children)) return children.map(extractText).join('');
+    if (children?.props?.children !== undefined)
+        return extractText(children.props.children);
+    return '';
+};
+
+/* ── KaTeX renderers ── */
+const MathBlock = ({ latex }) => {
+    try {
+        const html = katex.renderToString(latex.trim(), {
+            displayMode: true,
+            throwOnError: false,
+            trust: true,
+        });
+        return (
+            <div
+                className="math-block"
+                style={{
+                    overflowX: 'auto',
+                    padding: '1rem 0',
+                    textAlign: 'center',
+                    marginBottom: '1.2rem',
+                }}
+                dangerouslySetInnerHTML={{ __html: html }}
+            />
+        );
+    } catch (err) {
+        return <div style={{ color: 'red', fontFamily: 'monospace' }}>{latex}</div>;
+    }
+};
+
+const MathInline = ({ latex }) => {
+    try {
+        const html = katex.renderToString(latex.trim(), {
+            displayMode: false,
+            throwOnError: false,
+            trust: true,
+        });
+        return (
+            <span dangerouslySetInnerHTML={{ __html: html }} />
+        );
+    } catch (err) {
+        return <code>{latex}</code>;
+    }
+};
 
 const BlogDetailPage = () => {
     const { id } = useParams();
@@ -39,46 +90,95 @@ const BlogDetailPage = () => {
     return (
         <article className="blog-detail" style={{ paddingTop: '100px', minHeight: '100vh', paddingBottom: '50px' }}>
             <div className="container" style={{ maxWidth: '860px' }}>
-                <Link to="/blogs" className="back-link" style={{ display: 'inline-block', marginBottom: '20px', color: 'var(--text-primary)' }}>
+                <Link
+                    to="/blogs"
+                    className="back-link"
+                    style={{ display: 'inline-block', marginBottom: '20px', color: 'var(--text-primary)' }}
+                >
                     &larr; Back to Blogs
                 </Link>
-                <h1 className="blog-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{post.title}</h1>
-                <p className="blog-date" style={{ marginBottom: '2rem' }}>{new Date(post.created_at).toLocaleDateString()}</p>
+
+                <h1 className="blog-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+                    {post.title}
+                </h1>
+                <p className="blog-date" style={{ marginBottom: '2rem' }}>
+                    {new Date(post.created_at).toLocaleDateString()}
+                </p>
 
                 {post.media_url && (
-                    <div className="blog-media-full" style={{ marginBottom: '2rem', overflow: 'hidden', border: '3px solid var(--border-color)', boxShadow: '5px 5px 0px var(--text-primary)' }}>
+                    <div
+                        className="blog-media-full"
+                        style={{
+                            marginBottom: '2rem',
+                            overflow: 'hidden',
+                            border: '3px solid var(--border-color)',
+                            boxShadow: '5px 5px 0px var(--text-primary)',
+                        }}
+                    >
                         {post.media_type === 'video' ? (
-                            <video controls src={post.media_url} style={{ width: '100%', maxHeight: '500px', objectFit: 'contain', background: '#000' }} />
+                            <video
+                                controls
+                                src={post.media_url}
+                                style={{ width: '100%', maxHeight: '500px', objectFit: 'contain', background: '#000' }}
+                            />
                         ) : (
-                            <img src={post.media_url} alt={post.title} style={{ width: '100%', maxHeight: '500px', objectFit: 'contain', background: '#000' }} />
+                            <img
+                                src={post.media_url}
+                                alt={post.title}
+                                style={{ width: '100%', maxHeight: '500px', objectFit: 'contain', background: '#000' }}
+                            />
                         )}
                     </div>
                 )}
 
-                <div className="blog-content-full" style={{ fontSize: '1.05rem', lineHeight: '1.85', color: 'var(--text-secondary)' }}>
+                <div
+                    className="blog-content-full"
+                    style={{ fontSize: '1.05rem', lineHeight: '1.85', color: 'var(--text-secondary)' }}
+                >
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm, remarkMath]}
-                        rehypePlugins={[rehypeKatex]}
                         components={{
+                            /* ── MATH: block $$ ... $$ ── */
+                            div({ className, children, ...props }) {
+                                if (className?.includes('math-display') || className?.includes('math')) {
+                                    const latex = extractText(children);
+                                    if (latex) return <MathBlock latex={latex} />;
+                                }
+                                return <div className={className} {...props}>{children}</div>;
+                            },
+
+                            /* ── MATH: inline $ ... $ ── */
+                            span({ className, children, ...props }) {
+                                if (className?.includes('math-inline') || className?.includes('math')) {
+                                    const latex = extractText(children);
+                                    if (latex) return <MathInline latex={latex} />;
+                                }
+                                return <span className={className} {...props}>{children}</span>;
+                            },
+
+                            /* ── CODE BLOCKS ── */
                             code({ node, inline, className, children, ...props }) {
                                 const match = /language-(\w+)/.exec(className || '');
-                                return !inline && match ? (
-                                    <SyntaxHighlighter
-                                        style={vscDarkPlus}
-                                        language={match[1]}
-                                        PreTag="div"
-                                        customStyle={{
-                                            border: '2px solid var(--border-color)',
-                                            boxShadow: '4px 4px 0px var(--text-primary)',
-                                            borderRadius: '0',
-                                            marginBottom: '1.5rem',
-                                            fontSize: '0.9rem',
-                                        }}
-                                        {...props}
-                                    >
-                                        {String(children).replace(/\n$/, '')}
-                                    </SyntaxHighlighter>
-                                ) : (
+                                if (!inline && match) {
+                                    return (
+                                        <SyntaxHighlighter
+                                            style={vscDarkPlus}
+                                            language={match[1]}
+                                            PreTag="div"
+                                            customStyle={{
+                                                border: '2px solid var(--border-color)',
+                                                boxShadow: '4px 4px 0px var(--text-primary)',
+                                                borderRadius: '0',
+                                                marginBottom: '1.5rem',
+                                                fontSize: '0.9rem',
+                                            }}
+                                            {...props}
+                                        >
+                                            {String(children).replace(/\n$/, '')}
+                                        </SyntaxHighlighter>
+                                    );
+                                }
+                                return (
                                     <code
                                         style={{
                                             background: 'var(--bg-secondary)',
@@ -94,42 +194,93 @@ const BlogDetailPage = () => {
                                     </code>
                                 );
                             },
+
+                            /* ── HEADINGS ── */
+                            h2({ children }) {
+                                return (
+                                    <h2 style={{
+                                        fontFamily: 'var(--font-serif)',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1.4rem',
+                                        borderBottom: '2px solid var(--border-color)',
+                                        paddingBottom: '0.3rem',
+                                        marginTop: '2rem',
+                                        marginBottom: '1rem',
+                                    }}>
+                                        {children}
+                                    </h2>
+                                );
+                            },
+                            h3({ children }) {
+                                return (
+                                    <h3 style={{
+                                        fontFamily: 'var(--font-serif)',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1.15rem',
+                                        marginTop: '1.5rem',
+                                        marginBottom: '0.75rem',
+                                    }}>
+                                        {children}
+                                    </h3>
+                                );
+                            },
+
+                            /* ── BLOCKQUOTE ── */
                             blockquote({ children }) {
                                 return (
                                     <blockquote style={{
                                         borderLeft: '4px solid var(--accent-color)',
-                                        paddingLeft: '1rem',
-                                        marginLeft: 0,
-                                        color: 'var(--text-muted)',
-                                        fontStyle: 'italic',
                                         background: 'var(--bg-secondary)',
                                         padding: '0.8rem 1rem',
+                                        marginLeft: 0,
                                         marginBottom: '1rem',
+                                        color: 'var(--text-muted)',
+                                        fontStyle: 'italic',
                                     }}>
                                         {children}
                                     </blockquote>
                                 );
                             },
-                            h2({ children }) {
-                                return <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', fontSize: '1.4rem', borderBottom: '2px solid var(--border-color)', paddingBottom: '0.3rem', marginTop: '2rem', marginBottom: '1rem' }}>{children}</h2>;
-                            },
-                            h3({ children }) {
-                                return <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', fontSize: '1.15rem', marginTop: '1.5rem', marginBottom: '0.75rem' }}>{children}</h3>;
-                            },
+
+                            /* ── TABLE ── */
                             table({ children }) {
                                 return (
                                     <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
-                                        <table style={{ borderCollapse: 'collapse', width: '100%', border: '2px solid var(--border-color)' }}>
+                                        <table style={{
+                                            borderCollapse: 'collapse',
+                                            width: '100%',
+                                            border: '2px solid var(--border-color)',
+                                        }}>
                                             {children}
                                         </table>
                                     </div>
                                 );
                             },
                             th({ children }) {
-                                return <th style={{ background: 'var(--text-primary)', color: 'var(--bg-primary)', padding: '0.6rem 1rem', textAlign: 'left', fontFamily: 'var(--font-serif)', fontSize: '0.8rem', borderRight: '1px solid var(--bg-secondary)' }}>{children}</th>;
+                                return (
+                                    <th style={{
+                                        background: 'var(--text-primary)',
+                                        color: 'var(--bg-primary)',
+                                        padding: '0.6rem 1rem',
+                                        textAlign: 'left',
+                                        fontFamily: 'var(--font-serif)',
+                                        fontSize: '0.8rem',
+                                        borderRight: '1px solid var(--bg-secondary)',
+                                    }}>
+                                        {children}
+                                    </th>
+                                );
                             },
                             td({ children }) {
-                                return <td style={{ padding: '0.5rem 1rem', borderBottom: '1px solid var(--border-color)', borderRight: '1px solid var(--border-color)' }}>{children}</td>;
+                                return (
+                                    <td style={{
+                                        padding: '0.5rem 1rem',
+                                        borderBottom: '1px solid var(--border-color)',
+                                        borderRight: '1px solid var(--border-color)',
+                                    }}>
+                                        {children}
+                                    </td>
+                                );
                             },
                         }}
                     >
