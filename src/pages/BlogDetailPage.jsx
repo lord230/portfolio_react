@@ -3,62 +3,72 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
-/* ── helper: recursively extract plain text from React children ── */
-const extractText = (children) => {
-    if (!children) return '';
-    if (typeof children === 'string') return children;
-    if (typeof children === 'number') return String(children);
-    if (Array.isArray(children)) return children.map(extractText).join('');
-    if (children?.props?.children !== undefined)
-        return extractText(children.props.children);
-    return '';
+/* ──────────────────────────────────────────────────────────────
+   Pre-process markdown: convert $...$ and $$...$$ to KaTeX HTML
+   BEFORE passing to ReactMarkdown, so rehype-raw can render it.
+   Code fences are protected and restored untouched.
+────────────────────────────────────────────────────────────── */
+const preprocessMath = (raw) => {
+    if (!raw) return raw;
+
+    // 1. Pull out and protect fenced code blocks  ```...```
+    const fencedBlocks = [];
+    let out = raw.replace(/```[\s\S]*?```/g, (match) => {
+        fencedBlocks.push(match);
+        return `__FENCE_${fencedBlocks.length - 1}__`;
+    });
+
+    // 2. Pull out and protect inline code  `...`
+    const inlineCode = [];
+    out = out.replace(/`[^`\n]+`/g, (match) => {
+        inlineCode.push(match);
+        return `__INLINE_${inlineCode.length - 1}__`;
+    });
+
+    // 3. Block math  $$...$$
+    out = out.replace(/\$\$([\s\S]*?)\$\$/g, (_match, latex) => {
+        try {
+            const html = katex.renderToString(latex.trim(), {
+                displayMode: true,
+                throwOnError: false,
+                trust: true,
+            });
+            return `<div class="katex-block" style="overflow-x:auto;padding:1rem 0;text-align:center;margin-bottom:1.2rem;">${html}</div>`;
+        } catch {
+            return `<div class="katex-error">${latex}</div>`;
+        }
+    });
+
+    // 4. Inline math  $...$  (not $$ which was already handled)
+    out = out.replace(/\$([^$\n]+?)\$/g, (_match, latex) => {
+        try {
+            const html = katex.renderToString(latex.trim(), {
+                displayMode: false,
+                throwOnError: false,
+                trust: true,
+            });
+            return html;
+        } catch {
+            return `<code>${latex}</code>`;
+        }
+    });
+
+    // 5. Restore inline code  `...`
+    out = out.replace(/__INLINE_(\d+)__/g, (_m, idx) => inlineCode[parseInt(idx, 10)]);
+
+    // 6. Restore fenced code blocks
+    out = out.replace(/__FENCE_(\d+)__/g, (_m, idx) => fencedBlocks[parseInt(idx, 10)]);
+
+    return out;
 };
 
-/* ── KaTeX renderers ── */
-const MathBlock = ({ latex }) => {
-    try {
-        const html = katex.renderToString(latex.trim(), {
-            displayMode: true,
-            throwOnError: false,
-            trust: true,
-        });
-        return (
-            <div
-                className="math-block"
-                style={{
-                    overflowX: 'auto',
-                    padding: '1rem 0',
-                    textAlign: 'center',
-                    marginBottom: '1.2rem',
-                }}
-                dangerouslySetInnerHTML={{ __html: html }}
-            />
-        );
-    } catch (err) {
-        return <div style={{ color: 'red', fontFamily: 'monospace' }}>{latex}</div>;
-    }
-};
-
-const MathInline = ({ latex }) => {
-    try {
-        const html = katex.renderToString(latex.trim(), {
-            displayMode: false,
-            throwOnError: false,
-            trust: true,
-        });
-        return (
-            <span dangerouslySetInnerHTML={{ __html: html }} />
-        );
-    } catch (err) {
-        return <code>{latex}</code>;
-    }
-};
+/* ────────────────────────────────────────────────────────────── */
 
 const BlogDetailPage = () => {
     const { id } = useParams();
@@ -87,8 +97,13 @@ const BlogDetailPage = () => {
     if (loading) return <div style={{ paddingTop: '100px', textAlign: 'center' }}>Loading...</div>;
     if (!post) return <div style={{ paddingTop: '100px', textAlign: 'center' }}>Post not found</div>;
 
+    const processedContent = preprocessMath(post.content);
+
     return (
-        <article className="blog-detail" style={{ paddingTop: '100px', minHeight: '100vh', paddingBottom: '50px' }}>
+        <article
+            className="blog-detail"
+            style={{ paddingTop: '100px', minHeight: '100vh', paddingBottom: '50px' }}
+        >
             <div className="container" style={{ maxWidth: '860px' }}>
                 <Link
                     to="/blogs"
@@ -136,27 +151,10 @@ const BlogDetailPage = () => {
                     style={{ fontSize: '1.05rem', lineHeight: '1.85', color: 'var(--text-secondary)' }}
                 >
                     <ReactMarkdown
-                        remarkPlugins={[remarkGfm, remarkMath]}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
                         components={{
-                            /* ── MATH: block $$ ... $$ ── */
-                            div({ className, children, ...props }) {
-                                if (className?.includes('math-display') || className?.includes('math')) {
-                                    const latex = extractText(children);
-                                    if (latex) return <MathBlock latex={latex} />;
-                                }
-                                return <div className={className} {...props}>{children}</div>;
-                            },
-
-                            /* ── MATH: inline $ ... $ ── */
-                            span({ className, children, ...props }) {
-                                if (className?.includes('math-inline') || className?.includes('math')) {
-                                    const latex = extractText(children);
-                                    if (latex) return <MathInline latex={latex} />;
-                                }
-                                return <span className={className} {...props}>{children}</span>;
-                            },
-
-                            /* ── CODE BLOCKS ── */
+                            /* ── Code blocks ── */
                             code({ node, inline, className, children, ...props }) {
                                 const match = /language-(\w+)/.exec(className || '');
                                 if (!inline && match) {
@@ -195,7 +193,7 @@ const BlogDetailPage = () => {
                                 );
                             },
 
-                            /* ── HEADINGS ── */
+                            /* ── Headings ── */
                             h2({ children }) {
                                 return (
                                     <h2 style={{
@@ -225,7 +223,7 @@ const BlogDetailPage = () => {
                                 );
                             },
 
-                            /* ── BLOCKQUOTE ── */
+                            /* ── Blockquote ── */
                             blockquote({ children }) {
                                 return (
                                     <blockquote style={{
@@ -242,7 +240,7 @@ const BlogDetailPage = () => {
                                 );
                             },
 
-                            /* ── TABLE ── */
+                            /* ── Table ── */
                             table({ children }) {
                                 return (
                                     <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
@@ -284,7 +282,7 @@ const BlogDetailPage = () => {
                             },
                         }}
                     >
-                        {post.content}
+                        {processedContent}
                     </ReactMarkdown>
                 </div>
             </div>
