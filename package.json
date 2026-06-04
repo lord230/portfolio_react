@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-sitemap": "node scripts/generate-sitemap.js"
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "crawl": "node scripts/crawl.js",
+    "crawl:verbose": "node scripts/crawl.js --verbose",
+    "crawl:local": "node scripts/crawl.js --base-url http://localhost:4173 --verbose"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

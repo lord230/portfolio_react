@@ -1,0 +1,188 @@
+{
+  "generated": "2026-06-04T11:06:04.413Z",
+  "baseUrl": "http://amitverma.pro",
+  "elapsed": "3.3",
+  "summary": {
+    "total": 25,
+    "ok": 25,
+    "broken": 0,
+    "errors": 0
+  },
+  "results": [
+    {
+      "url": "http://amitverma.pro/",
+      "status": 200,
+      "ok": true,
+      "redirect": null,
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/resume",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/smart-pricing",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/tumor",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/sentiment",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/aimlverse",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/life-number",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/snake",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/sorting",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/rock-paper-scissors",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/timetable",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/mandelbrot",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/gesture",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/face-cursor",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/weather",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/lan",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/clipperboard",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/neural",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/project/rotation",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs/33be1cbd-36e3-407d-a74e-4a537ad34146",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs/ac5de7a5-1c89-434f-950f-a441a4729e7c",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs/fef96695-56e9-45ed-82ae-cd98281b6d0c",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs/2be46c04-e841-4d57-b769-492d2de8686b",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    },
+    {
+      "url": "http://amitverma.pro/blogs/348600c2-65e0-4607-8b4e-9c338f3c3e83",
+      "status": 307,
+      "ok": true,
+      "redirect": "http://amitverma.pro/",
+      "error": null
+    }
+  ]
+}

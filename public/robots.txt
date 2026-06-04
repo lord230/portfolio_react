@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
+# Block admin area from indexing
+Disallow: /admin
+
+# Sitemap location
 Sitemap: https://amitverma.pro/sitemap.xml
