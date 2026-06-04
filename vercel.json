@@ -1,11 +1,19 @@
 {
     "rewrites": [
         {
-            "source": "/blogs/:slug*",
+            "source": "/blogs/:path*",
             "destination": "/"
         },
         {
-            "source": "/admin/:slug*",
+            "source": "/project/:path*",
+            "destination": "/"
+        },
+        {
+            "source": "/admin/:path*",
+            "destination": "/"
+        },
+        {
+            "source": "/resume",
             "destination": "/"
         }
     ]
