@@ -11,6 +11,7 @@ import AdminPage from './pages/AdminPage';
 import BlogListPage from './pages/BlogListPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import ResumePage from './pages/ResumePage';
 
 // Components
 import Footer from './components/Footer';
@@ -61,6 +62,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/blogs" element={<BlogListPage />} />
             <Route path="/blogs/:id" element={<BlogDetailPage />} />
+            <Route path="/resume" element={<ResumePage />} />
           </Routes>
 
           <Footer />

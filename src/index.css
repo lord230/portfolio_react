@@ -29,12 +29,16 @@
     border-radius: 0 !important; /* Force blocky pixel aesthetic globally */
 }
 
+html,
+body {
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.4s ease;
     word-wrap: break-word;
     /* Neural Grid Background */
@@ -1842,12 +1846,103 @@ section {
     .modal-right {
         padding: 1.5rem;
     }
+
+    /* Contact section responsive */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.6rem;
+        justify-content: center;
+    }
+
+    .contact-desc {
+        text-align: center;
+    }
+
+    /* Nav menu improvements */
+    .nav-menu {
+        z-index: 100;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Category titles */
+    .category-title {
+        font-size: 1.6rem;
+    }
+
+    .major-project-description {
+        max-width: 100%;
+    }
+
+    /* About section — collapse to single column */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-left {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .about-illustration {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .illustration-path {
+        width: 40px;
+        height: 3px;
+    }
+
+    .about-text-content {
+        padding-left: 0;
+    }
+
+    .about-bio {
+        text-align: center;
+    }
+
+    .personal-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skills-container h3 {
+        text-align: center;
+    }
+
+    .skill-categories {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-category h4 {
+        text-align: center;
+    }
+
+    .skill-tags {
+        justify-content: center;
+    }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
     body {
         font-size: 15px;
+        overflow-x: hidden;
     }
 
     .nav-container {
@@ -1925,6 +2020,173 @@ section {
     .modal-header,
     .modal-left,
     .modal-right {
+        padding: 1rem;
+    }
+
+    /* Contact section — small mobile */
+    .contact-method-card {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .c-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.4rem;
+    }
+
+    .contact-form-container {
+        padding: 1.5rem;
+    }
+
+    /* Project cards — small mobile */
+    .category-title {
+        font-size: 1.4rem;
+    }
+
+    .category-description {
+        font-size: 1rem;
+    }
+
+    .major-project-card {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .major-project-title {
+        font-size: 1.5rem;
+    }
+
+    .major-project-description {
+        font-size: 1rem;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .read-more-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .exploratory-title {
+        font-size: 1.2rem;
+    }
+
+    .exploratory-project-card {
+        padding: 1.2rem;
+    }
+
+    .exploratory-projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+
+    /* Modal — small mobile */
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-content {
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .modal-title {
+        font-size: 1.4rem;
+    }
+
+    .modal-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .step-content {
+        padding: 1rem 1rem 1rem 2.5rem;
+    }
+
+    /* Blog — small mobile */
+    .blog-content {
+        padding: 1rem;
+    }
+
+    .blog-title {
+        font-size: 1.1rem;
+    }
+
+    /* Admin — small mobile */
+    .admin-content {
+        padding: 1rem;
+    }
+}
+
+/* Ultra-small screens (320px) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .nav-logo .logo-text {
+        font-size: 1.5rem;
+    }
+
+    .contact-method-card {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+
+    .c-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .contact-method-card h4 {
+        font-size: 0.95rem;
+    }
+
+    .contact-method-card span {
+        font-size: 0.85rem;
+    }
+
+    .major-project-card {
+        padding: 1.2rem;
+    }
+
+    .major-project-title {
+        font-size: 1.3rem;
+    }
+
+    .category-title {
+        font-size: 1.2rem;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+    }
+
+    .exploratory-project-card {
         padding: 1rem;
     }
 }
@@ -2752,7 +3014,6 @@ section {
 .ufo-emoji {
     font-size: 2rem;
     filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
-    transition: transform 0.1s ease;
 }
 
 .ufo-cursor.beaming .ufo-emoji {

@@ -190,4 +190,61 @@
     .detail-text {
         padding: 1.5rem;
     }
+
+    .timeline-content {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-title {
+        font-size: 2rem;
+    }
+
+    .detail-heading {
+        font-size: 1.5rem;
+    }
+
+    .detail-text {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .info-box {
+        padding: 1.2rem;
+    }
+
+    .info-box h3 {
+        font-size: 1.2rem;
+    }
+
+    .info-box.result {
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .execution-timeline {
+        padding-left: 1.2rem;
+        margin-left: 0.5rem;
+    }
+
+    .timeline-marker {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+        left: -2.3rem;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .project-detail-page {
+        padding-top: 80px;
+        padding-bottom: 3rem;
+    }
 }

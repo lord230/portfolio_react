@@ -467,4 +467,67 @@
     .pdp-glass-card {
         padding: 1.5rem;
     }
+
+    .pdp-container {
+        padding: 0 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdp-hero {
+        padding: 100px 0 40px;
+    }
+
+    .pdp-container {
+        padding: 0 1rem;
+    }
+
+    .pdp-title {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+
+    .pdp-subtitle {
+        font-size: 1rem;
+    }
+
+    .pdp-glass-card {
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .pdp-step-card {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .pdp-step-num {
+        font-size: 1.5rem;
+        min-width: auto;
+    }
+
+    .pdp-body-text {
+        font-size: 0.95rem;
+    }
+
+    .pdp-back {
+        margin-bottom: 2rem;
+    }
+
+    .pdp-section-label {
+        font-size: 0.75rem;
+    }
+
+    .pdp-content {
+        gap: 2.5rem;
+    }
+
+    .pdp-cta-row {
+        flex-direction: column;
+    }
+
+    .pdp-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

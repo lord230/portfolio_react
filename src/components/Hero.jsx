@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NeuralNetwork from './NeuralNetwork';
 import { motion } from 'framer-motion';
 import PixelButton from './PixelButton';
@@ -57,7 +58,7 @@ const Hero = () => {
                     <motion.div className="hero-buttons" variants={itemVariants} style={{ display: 'flex', gap: '1rem' }}>
                         <a href="#projects" style={{ textDecoration: 'none' }}><PixelButton isPrimary={true}>View Projects</PixelButton></a>
                         <a href="#contact" style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Get In Touch</PixelButton></a>
-                        <a href="/Resume_av.pdf" download style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>Download CV</PixelButton></a>
+                        <Link to="/resume" style={{ textDecoration: 'none' }}><PixelButton isPrimary={false}>View Resume</PixelButton></Link>
                     </motion.div>
                 </motion.div>
 
