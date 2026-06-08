@@ -351,12 +351,12 @@ const NodeCard: React.FC<NodeCardProps> = ({ node, index, isActive, onClick }) =
           </div>
         )}
         <div className="arch-node-witty">{node.witty}</div>
+        {isActive && (
+          <div className="arch-node-expanded">
+            <div className="arch-node-detail">{node.detail}</div>
+          </div>
+        )}
       </div>
-      {isActive && (
-        <div className="arch-node-expanded">
-          <div className="arch-node-detail">{node.detail}</div>
-        </div>
-      )}
     </div>
   );
 };

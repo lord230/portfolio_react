@@ -4,6 +4,7 @@ import { projectInfo } from '../data/projects';
 import './ProjectDetailPage.css';
 import AmazonMLArchitecture from '../components/AmazonMLArchitecture';
 import SentimentFusionArchitecture from '../components/SentimentFusionArchitecture';
+import TumorArchitecture from '../components/TumorArchitecture';
 
 /* ── tiny icon map so we don't need Font Awesome for every badge ── */
 const techColors = {
@@ -140,6 +141,11 @@ const ProjectDetailPage = () => {
             {id === 'sentiment' && (
                 <div className="pdp-container" style={{ paddingTop: '3rem', paddingBottom: '1rem' }}>
                     <SentimentFusionArchitecture />
+                </div>
+            )}
+            {id === 'tumor' && (
+                <div className="pdp-container" style={{ paddingTop: '3rem', paddingBottom: '1rem' }}>
+                    <TumorArchitecture />
                 </div>
             )}
 

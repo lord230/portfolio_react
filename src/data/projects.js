@@ -34,33 +34,37 @@ export const majorProjects = {
     'tumor': {
         title: 'Tumor Grad-CAM Classification',
         shortDescription: 'An advanced Hybrid Neural Network combining CNNs and Transformers to classify brain MRI scans with explicit Grad-CAM mappings.',
-        description: 'This repository hosts an advanced Hybrid Neural Network designed for classifying brain classification variants utilizing Magnetic Resonance Imaging (MRI). By combining the spatial extraction reasoning inherent to Convolutional Neural Networks with the global context logic of Transformers, the model operates securely to output predictions confirmed utilizing explicit Grad-CAM mappings per case.',
-        techStack: ['PyTorch', 'EfficientNet-B0', 'Swin Transformer', 'Grad-CAM', 'Tkinter', 'Medical Imaging'],
-        problemStatement: 'Testing the accuracy variables demands broad and precise initial definitions minimizing data pooling contamination across more than 10,000 distinct samples, accurately classifying brain tumor variants.',
-        approach: 'The structural foundation deploys multiple branches: A CNN Sub-Network (EfficientNet-B0) parsing hierarchical layers and a Transformer Sub-Network (Swin-Tiny) generating structural continuity. They are fused using a Channel Attention filter to align significance per component. Class selection directly references learnable vectors using a Prototype Memory Head.',
+        description: 'An advanced Hybrid Neural Network (HybridMemoryNet) designed for classifying brain MRI scans. By combining the spatial extraction reasoning inherent to Convolutional Neural Networks (EfficientNet-B0) with the global context logic of Transformers (Swin-Tiny), the model operates securely to output predictions confirmed via explicit Grad-CAM mappings. During inference, the frontend displays: Extracting local features, Computing global context, Fusing representations (SE-Gate), Calculating Prototype Cosine Similarities, and Generating Grad-CAM visualization.',
+        techStack: ['PyTorch', 'EfficientNet-B0', 'Swin Transformer', 'Grad-CAM', 'Medical Imaging'],
+        problemStatement: 'Testing the accuracy variables demands broad and precise initial definitions minimizing data pooling contamination across more than 10,000 distinct samples. Standard classifiers often fail to capture both fine-grained local anomalies (like tumor edges) and global brain structures simultaneously.',
+        approach: 'HybridMemoryNet Architecture combines two branches: EfficientNet-B0 captures texture, tumor edges, and fine-grained patterns, while Swin-Tiny Transformer captures global tumor structure and long-range spatial relationships. These representations are fused via an SE-Gate, learning which branch to trust more. Finally, a Prototype Memory Module compares the unified feature vector against learned class prototypes via Cosine Similarity for classification.',
         executionSteps: [
             {
-                title: 'CNN Sub-Network',
-                description: 'Utilizes PyTorch\'s EfficientNet-B0 design template parsing hierarchical layers identifying defining edges, shapes, and features from the local scan context arrays.'
+                title: 'Step 1: Image Upload & Preview',
+                description: 'User uploads an MRI. The frontend stores the image and preview.'
             },
             {
-                title: 'Transformer Sub-Network',
-                description: 'Incorporates Swin-Tiny mechanisms generating structural continuity across separated components of any given volume through critical self-attention systems.'
+                title: 'Step 2: Model Inference Pipeline',
+                description: 'Image is sent to the Hugging Face backend along with a Grad-CAM alpha blending strength parameter (e.g. 0.5).'
             },
             {
-                title: 'Channel Attention Fusion Element',
-                description: 'A structured Channel Attention filter mechanism aligns significance per component to effectively integrate vectors retaining significant variables and shedding artifact features.'
+                title: 'Step 3: Response Generation',
+                description: 'Backend evaluates the input and returns confidence scores coupled with the generated Grad-CAM heatmap image.'
             },
             {
-                title: 'Prototype Memory Head & GUI',
-                description: 'Class selection directly references learnable vectors against a configurable temperature gradient via Cosine similarity. An interactive GUI platform provides direct analytical control allowing transparent evaluation.'
+                title: 'Step 4: Probability Ranking',
+                description: 'Frontend parses the confidence probabilities (e.g., Glioma 96.4%, Pituitary 2.1%, etc.) and ranks them for display.'
+            },
+            {
+                title: 'Step 5: Explainability Overlay Display',
+                description: 'The Grad-CAM overlay is rendered over the MRI to provide medical explainability by highlighting the regions responsible for the prediction.'
             }
         ],
-        challenges: 'Limiting overfitting, effectively integrating CNN spatial features with Transformer global context, and securely confirming predictions for clinical trustworthiness.',
-        solutions: 'Deployed multiple branches and a structured Channel Attention filter mechanism. Introduced an interactive GUI adjusting blend configurations to evaluate transparent Grad-CAM activation outputs directly.',
-        results: 'Raw Accuracy Base: 99.03%, Precision Index (Macro): 98.84%, Recall Index (Macro): 98.95%, Integrated ROC AUC Index: 0.9986. Specific accuracies: Glioma (99.58%), Meningioma (98.04%), No Tumor (99.75%), Pituitary (98.43%).',
+        challenges: 'Limiting overfitting, effectively integrating CNN spatial features with Transformer global context, separating visually similar classes, and ensuring regulatory-friendly clinical trustworthiness.',
+        solutions: 'Utilized an SE-Gated Fusion to intelligently weigh local vs. global features. Implemented a Prototype Memory approach to improve class separation with limited medical datasets. Integrated Grad-CAM for transparent, trust-building visualization.',
+        results: 'The architecture strengths: EfficientNet provides lightweight, fast feature extraction; Swin offers better global understanding; Prototype Memory enhances interpretable separation; and Grad-CAM ensures doctor trust. Raw Accuracy Base: 99.03%, Precision (Macro): 98.84%, Recall: 98.95%, AUC: 0.9986.',
         githubLink: 'https://github.com/lord230/Tumor-GradCam',
-        demoLink: null
+        demoLink: 'https://huggingface.co/spaces/Lord230/td'
     },
     'sentiment': {
         title: 'Sentiment Fusion',
