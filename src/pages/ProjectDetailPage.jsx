@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { projectInfo } from '../data/projects';
 import './ProjectDetailPage.css';
+import AmazonMLArchitecture from '../components/AmazonMLArchitecture';
+import SentimentFusionArchitecture from '../components/SentimentFusionArchitecture';
 
 /* ── tiny icon map so we don't need Font Awesome for every badge ── */
 const techColors = {
@@ -128,6 +130,18 @@ const ProjectDetailPage = () => {
                     </div>
                 </div>
             </div>
+
+            {/* ── ARCHITECTURE VISUALIZATIONS ── */}
+            {id === 'smart-pricing' && (
+                <div className="pdp-container" style={{ paddingTop: '3rem', paddingBottom: '1rem' }}>
+                    <AmazonMLArchitecture />
+                </div>
+            )}
+            {id === 'sentiment' && (
+                <div className="pdp-container" style={{ paddingTop: '3rem', paddingBottom: '1rem' }}>
+                    <SentimentFusionArchitecture />
+                </div>
+            )}
 
             {/* ── CONTENT ── */}
             <div className="pdp-container pdp-content">

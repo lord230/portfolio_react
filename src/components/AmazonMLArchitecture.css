@@ -1,0 +1,668 @@
+/* ==========================================================================
+   AmazonMLArchitecture.css
+   Retro 8-bit ML theme — Ivory/Navy/Gold palette
+   ========================================================================== */
+
+/* ── Root ── */
+.arch-root {
+  font-family: var(--font-sans, 'IBM Plex Mono', monospace);
+  color: var(--text-primary, #0B1F3B);
+  background: var(--bg-primary, #F8F4EC);
+  padding: 2rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ── Header ── */
+.arch-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  border: 2px solid var(--border-color, #0B1F3B);
+  background: var(--bg-card, #FDFBFC);
+  box-shadow: 4px 4px 0 var(--border-color, #0B1F3B);
+  position: relative;
+  overflow: hidden;
+}
+
+.arch-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(11, 31, 59, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 31, 59, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.arch-header-badge {
+  display: inline-block;
+  background: var(--text-primary, #0B1F3B);
+  color: var(--accent-color, #FFD700);
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.55rem;
+  padding: 0.4rem 0.8rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.2rem;
+  border: 2px solid var(--accent-color, #FFD700);
+  animation: arch-badge-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes arch-badge-pulse {
+  from { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+  to   { box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.4); }
+}
+
+.arch-main-title {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+  font-weight: 900;
+  line-height: 1.4;
+  color: var(--text-primary, #0B1F3B);
+  margin-bottom: 0.75rem;
+  text-shadow: 3px 3px 0 var(--accent-color, #FFD700);
+  word-break: break-word;
+}
+
+.arch-title-accent {
+  color: var(--secondary-accent, #2EC4B6);
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+}
+
+.arch-header-sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #1C385C);
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ── Section Label ── */
+.arch-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary, #0B1F3B);
+  border-bottom: 2px solid var(--border-color, #0B1F3B);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Stats Banner ── */
+.arch-stats-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.arch-stat-item {
+  background: var(--bg-card, #FDFBFC);
+  border: 2px solid;
+  box-shadow: 3px 3px 0 var(--border-color, #0B1F3B);
+  padding: 1rem 1.2rem;
+  text-align: center;
+  min-width: 100px;
+  flex: 1;
+  max-width: 140px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arch-stat-item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--border-color, #0B1F3B);
+}
+
+.arch-stat-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.arch-stat-value {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.65rem;
+  font-weight: 900;
+  margin-bottom: 0.3rem;
+}
+
+.arch-stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #1C385C);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Flow Diagram ── */
+.arch-flow-wrapper {
+  border: 2px solid var(--border-color, #0B1F3B);
+  box-shadow: 4px 4px 0 var(--border-color, #0B1F3B);
+  background: var(--bg-card, #FDFBFC);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.arch-flow-scroll {
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+.arch-flow-svg {
+  display: block;
+}
+
+.arch-flow-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted, #4B6282);
+  text-align: center;
+  margin-top: 0.75rem;
+  letter-spacing: 0.03em;
+}
+
+/* ── Core Idea ── */
+.arch-core-idea {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--bg-card, #FDFBFC);
+  border: 2px solid var(--border-color, #0B1F3B);
+  box-shadow: 4px 4px 0 var(--border-color, #0B1F3B);
+  padding: 1.8rem;
+}
+
+.arch-core-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.arch-core-title {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.6rem;
+  color: var(--accent-color, #FFD700);
+  background: var(--text-primary, #0B1F3B);
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.arch-core-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #1C385C);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.arch-core-text strong {
+  color: var(--text-primary, #0B1F3B);
+  font-weight: 700;
+}
+
+.arch-core-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.arch-example-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--border-color, #0B1F3B);
+  font-size: 0.8rem;
+}
+
+.arch-ex-high {
+  background: rgba(46, 196, 182, 0.08);
+  border-color: var(--secondary-accent, #2EC4B6);
+}
+
+.arch-ex-mid {
+  background: rgba(255, 215, 0, 0.08);
+  border-color: var(--accent-color, #FFD700);
+}
+
+.arch-ex-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.arch-ex-label {
+  color: var(--text-secondary, #1C385C);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.arch-ex-result {
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+}
+
+.arch-ex-high-text { color: var(--secondary-accent, #2EC4B6); }
+.arch-ex-mid-text  { color: #e17055; }
+
+/* ── Step Cards ── */
+.arch-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.arch-step-card {
+  border: 2px solid var(--border-color, #0B1F3B);
+  background: var(--bg-card, #FDFBFC);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.arch-step-card.arch-visible,
+.arch-step-card.arch-step-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.arch-step-card.arch-step-active {
+  box-shadow: 4px 4px 0 var(--secondary-accent, #2EC4B6);
+  border-color: var(--secondary-accent, #2EC4B6);
+}
+
+.arch-step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+.arch-step-header:hover {
+  background: rgba(11, 31, 59, 0.04);
+}
+
+.arch-step-num-badge {
+  background: var(--text-primary, #0B1F3B);
+  color: var(--accent-color, #FFD700);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.arch-step-num-text {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.55rem;
+}
+
+.arch-step-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.arch-step-icon {
+  font-size: 1.2rem;
+}
+
+.arch-step-title {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.5rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary, #0B1F3B);
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+.arch-step-chevron {
+  font-size: 0.8rem;
+  color: var(--text-muted, #4B6282);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.arch-chevron-open {
+  transform: rotate(180deg);
+}
+
+/* ── Step Body ── */
+.arch-step-body {
+  border-top: 2px solid var(--border-color, #0B1F3B);
+  padding: 1.5rem;
+  animation: arch-step-unfold 0.3s ease;
+}
+
+@keyframes arch-step-unfold {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.arch-step-description {
+  font-size: 0.88rem;
+  color: var(--text-secondary, #1C385C);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.arch-witty-quote {
+  background: var(--text-primary, #0B1F3B);
+  color: var(--accent-color, #FFD700);
+  font-style: italic;
+  font-size: 0.8rem;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1.4rem;
+  line-height: 1.75;
+  position: relative;
+}
+
+.arch-quote-mark {
+  font-size: 1.2rem;
+  line-height: 0;
+  vertical-align: -0.3em;
+  margin: 0 0.3rem;
+  opacity: 0.7;
+}
+
+/* ── Node Cards ── */
+.arch-nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.arch-node-card {
+  border: 2px solid var(--border-color, #0B1F3B);
+  background: var(--bg-primary, #F8F4EC);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  gap: 0.8rem;
+  animation: arch-node-in 0.3s ease both;
+}
+
+@keyframes arch-node-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.arch-node-card:hover {
+  border-color: var(--secondary-accent, #2EC4B6);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--secondary-accent, #2EC4B6);
+}
+
+.arch-node-active {
+  border-color: var(--accent-color, #FFD700) !important;
+  background: rgba(255, 215, 0, 0.06) !important;
+  box-shadow: 3px 3px 0 var(--accent-color, #FFD700) !important;
+}
+
+.arch-node-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.arch-node-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.arch-node-label {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.45rem;
+  color: var(--text-primary, #0B1F3B);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+.arch-node-sublabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #1C385C);
+  margin-bottom: 0.3rem;
+}
+
+.arch-node-dim {
+  margin-bottom: 0.3rem;
+}
+
+.arch-dim-badge {
+  display: inline-block;
+  background: var(--text-primary, #0B1F3B);
+  color: var(--accent-color, #FFD700);
+  font-size: 0.6rem;
+  padding: 0.15rem 0.4rem;
+  font-family: var(--font-sans, 'IBM Plex Mono', monospace);
+  font-weight: 700;
+}
+
+.arch-node-witty {
+  font-size: 0.7rem;
+  color: var(--text-muted, #4B6282);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.arch-node-expanded {
+  border-top: 1px solid var(--border-color, #0B1F3B);
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  animation: arch-expand 0.25s ease;
+}
+
+@keyframes arch-expand {
+  from { opacity: 0; max-height: 0; }
+  to   { opacity: 1; max-height: 200px; }
+}
+
+.arch-node-detail {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #1C385C);
+  line-height: 1.7;
+}
+
+.arch-tap-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted, #4B6282);
+  text-align: right;
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
+/* ── Comparison ── */
+.arch-compare-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.arch-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.arch-compare-card {
+  border: 2px solid var(--border-color, #0B1F3B);
+  background: var(--bg-card, #FDFBFC);
+  padding: 1.3rem;
+  box-shadow: 3px 3px 0 var(--border-color, #0B1F3B);
+}
+
+.arch-compare-title {
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.5rem;
+  color: var(--text-primary, #0B1F3B);
+  margin-bottom: 0.8rem;
+  background: var(--accent-color, #FFD700);
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.arch-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  margin-bottom: 0.8rem;
+}
+
+.arch-compare-table th,
+.arch-compare-table td {
+  border: 1px solid var(--border-color, #0B1F3B);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  color: var(--text-secondary, #1C385C);
+}
+
+.arch-compare-table th {
+  background: var(--text-primary, #0B1F3B);
+  color: var(--bg-primary, #F8F4EC);
+  font-family: var(--font-serif, 'Press Start 2P', cursive);
+  font-size: 0.45rem;
+  letter-spacing: 0.04em;
+}
+
+.arch-winner-row td {
+  background: rgba(46, 196, 182, 0.12);
+  font-weight: 700;
+  color: var(--text-primary, #0B1F3B);
+}
+
+.arch-compare-note {
+  font-size: 0.75rem;
+  color: var(--text-muted, #4B6282);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ── E2E Summary ── */
+.arch-e2e-summary {
+  background: var(--bg-card, #FDFBFC);
+  border: 2px solid var(--border-color, #0B1F3B);
+  box-shadow: 4px 4px 0 var(--border-color, #0B1F3B);
+  padding: 1.5rem;
+}
+
+.arch-e2e-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 400px;
+  margin: 1rem auto 0;
+}
+
+.arch-e2e-node {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 2px solid var(--border-color, #0B1F3B);
+  background: var(--bg-primary, #F8F4EC);
+  padding: 0.6rem 1.2rem;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.arch-e2e-node:hover {
+  background: var(--text-primary, #0B1F3B);
+  color: var(--accent-color, #FFD700);
+}
+
+.arch-e2e-node:last-child {
+  background: var(--accent-color, #FFD700);
+  border-color: var(--text-primary, #0B1F3B);
+  box-shadow: 3px 3px 0 var(--text-primary, #0B1F3B);
+}
+
+.arch-e2e-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.arch-e2e-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.arch-e2e-arrow {
+  font-size: 1.2rem;
+  color: var(--text-muted, #4B6282);
+  line-height: 1;
+  padding: 0.1rem 0;
+  align-self: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .arch-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-nodes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-core-idea {
+    flex-direction: column;
+  }
+
+  .arch-step-title {
+    font-size: 0.4rem;
+  }
+
+  .arch-stats-banner {
+    gap: 0.6rem;
+  }
+
+  .arch-stat-item {
+    max-width: 120px;
+    min-width: 80px;
+    padding: 0.7rem 0.6rem;
+  }
+
+  .arch-stat-value {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .arch-main-title {
+    font-size: 0.9rem;
+  }
+
+  .arch-step-header {
+    padding: 0.8rem 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .arch-step-body {
+    padding: 1rem 0.8rem;
+  }
+
+  .arch-witty-quote {
+    font-size: 0.72rem;
+  }
+
+  .arch-node-label {
+    font-size: 0.4rem;
+  }
+
+  .arch-compare-table {
+    font-size: 0.7rem;
+  }
+}
