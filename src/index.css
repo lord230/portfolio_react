@@ -2541,8 +2541,8 @@ section {
 .project-visual-layer {
     background: var(--bg-secondary);
     border-radius: 16px;
-    height: 100%;
-    min-height: 250px;
+    height: 250px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2577,7 +2577,7 @@ section {
     }
 
     .project-visual-layer {
-        min-height: 180px;
+        height: 180px;
     }
 }
 
