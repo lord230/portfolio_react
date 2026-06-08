@@ -441,10 +441,10 @@ const ModelArchDiagram: React.FC = () => {
 
           {/* Split: Left to Sarcasm, Center down to Cat, Right for Skip Connection */}
           <line x1={240} y1={350} x2={160} y2={400} stroke="#e17055" strokeWidth="2" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.8" />
-          <DA x1={320} y1={370} x2={320} y2={650} />
+          <DA x1={320} y1={370} x2={320} y2={690} />
           
-          <polyline points="400,350 500,350 500,820 350,820" fill="none" stroke="#e17055" strokeWidth="2" strokeDasharray="5,3" opacity="0.8" />
-          <polygon points="344,817 350,820 344,823" fill="#e17055" />
+          <polyline points="400,350 500,350 500,860 350,860" fill="none" stroke="#e17055" strokeWidth="2" strokeDasharray="5,3" opacity="0.8" />
+          <polygon points="344,857 350,860 344,863" fill="#e17055" />
           <text x={510} y={585} textAnchor="middle" fill="#e17055" fontSize="8" fontFamily="'IBM Plex Mono', monospace" transform="rotate(90, 510, 585)">cls (residual skip)</text>
 
           {/* LEFT PATH: Sarcasm Head */}
@@ -463,41 +463,41 @@ const ModelArchDiagram: React.FC = () => {
           <RNode id="sarc-prob" x={40} y={630} w={200} h={40} color="#e17055" tc="#fff"
             lines={['sarcasm_prob']} sub="scalar probability" />
           
-          <line x1={240} y1={650} x2={270} y2={670} stroke="#e17055" strokeWidth="2" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.8" />
+          <line x1={240} y1={650} x2={270} y2={690} stroke="#e17055" strokeWidth="2" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.8" />
 
           {/* CENTER: Concat */}
-          <RNode id="concat" x={180} y={650} w={280} h={50} color="#2EC4B6" tc="#0B1F3B"
+          <RNode id="concat" x={180} y={690} w={280} h={50} color="#2EC4B6" tc="#0B1F3B"
             lines={['gate_input = torch.cat([cls, sarcasm_prob], dim=-1)']} sub="769-D" />
-          <DA x1={320} y1={700} x2={320} y2={730} />
+          <DA x1={320} y1={740} x2={320} y2={770} />
 
           {/* GATE PROJ */}
-          <RNode id="gate-proj" x={180} y={730} w={280} h={60} color="#6c5ce7" tc="#fff"
+          <RNode id="gate-proj" x={180} y={770} w={280} h={60} color="#6c5ce7" tc="#fff"
             lines={['gate = self.gate_proj(gate_input)']} sub="nn.Sequential(Linear(769→768), Tanh())" />
-          <DA x1={320} y1={790} x2={320} y2={810} />
+          <DA x1={320} y1={830} x2={320} y2={850} />
 
           {/* RESIDUAL ADD */}
-          <circle cx={320} cy={820} r={20} fill="#e17055" stroke="#0B1F3B" strokeWidth="2" />
-          <text x={320} y={822} textAnchor="middle" dominantBaseline="middle" fill="#fff" fontSize="18" fontWeight="bold" fontFamily="'IBM Plex Mono', monospace">⊕</text>
-          <text x={290} y={820} textAnchor="end" fill="#e17055" fontSize="8" fontFamily="'IBM Plex Mono', monospace">gate +</text>
+          <circle cx={320} cy={860} r={20} fill="#e17055" stroke="#0B1F3B" strokeWidth="2" />
+          <text x={320} y={862} textAnchor="middle" dominantBaseline="middle" fill="#fff" fontSize="18" fontWeight="bold" fontFamily="'IBM Plex Mono', monospace">⊕</text>
+          <text x={290} y={860} textAnchor="end" fill="#e17055" fontSize="8" fontFamily="'IBM Plex Mono', monospace">gate +</text>
           
-          <DA x1={320} y1={840} x2={320} y2={870} />
+          <DA x1={320} y1={880} x2={320} y2={910} />
 
           {/* GATE NORM */}
-          <RNode id="gate-norm" x={160} y={870} w={320} h={50} color="#00b894" tc="#fff"
+          <RNode id="gate-norm" x={160} y={910} w={320} h={50} color="#00b894" tc="#fff"
             lines={['gated_representation = self.gate_norm(cls + gate)']} sub="nn.LayerNorm(768) → 768-D" />
-          <DA x1={320} y1={920} x2={320} y2={950} />
+          <DA x1={320} y1={960} x2={320} y2={990} />
 
           {/* SENTIMENT HEAD */}
-          <RNode id="sent-head" x={160} y={950} w={320} h={50} color="#6c5ce7" tc="#fff"
+          <RNode id="sent-head" x={160} y={990} w={320} h={50} color="#6c5ce7" tc="#fff"
             lines={['sentiment_logits = self.sentiment_head(gated_representation)']} sub="nn.Linear(768 → 3)" />
-          <DA x1={320} y1={1000} x2={320} y2={1030} />
+          <DA x1={320} y1={1040} x2={320} y2={1070} />
 
           {/* OUTPUT */}
-          <RNode id="output" x={160} y={1030} w={320} h={50} color="#0B1F3B" tc="#FFD700"
+          <RNode id="output" x={160} y={1070} w={320} h={50} color="#0B1F3B" tc="#FFD700"
             lines={['return sentiment_logits, sarcasm_logits']} sub="[B, 3] and [B, 1]" />
           
-          <line x1={140} y1={670} x2={140} y2={1055} stroke="#e17055" strokeWidth="1" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.3" />
-          <line x1={140} y1={1055} x2={160} y2={1055} stroke="#e17055" strokeWidth="1" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.3" />
+          <line x1={140} y1={670} x2={140} y2={1095} stroke="#e17055" strokeWidth="1" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.3" />
+          <line x1={140} y1={1095} x2={160} y2={1095} stroke="#e17055" strokeWidth="1" strokeDasharray="5,3" markerEnd="url(#ma2-arr-red)" opacity="0.3" />
         </svg>
       </div>
       <p className="sf-flow-hint">↕ Scroll to see full architecture • Exact representation of forward()</p>
